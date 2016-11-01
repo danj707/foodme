@@ -1,0 +1,1 @@
+mongod --dbpath /mnt/c/Users/Dan\ Jenner/Development/thinkful/foodme/mongo_data/ --nojournal --rest "$@"
