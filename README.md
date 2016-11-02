@@ -5,7 +5,8 @@
 ## Interactive SPA using React, mongoDB, JS, jQuery, Node, mongoose/express.
 
 ![Prototype 1](foodme1.png)
-![Prototype 1](foodme2.png)
-![Prototype 1](foodme3.png)
-![Prototype 1](foodme4.png)
-![Prototype 1](foodme5.png)
+![Prototype 2](foodme2.png)
+![Prototype 3](foodme3.png)
+![Prototype 4](foodme4.png)
+![Prototype 5](foodme5.png)
+![Animation Example](anim.gif)
