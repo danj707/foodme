@@ -2,8 +2,16 @@
 
 /* global $ */
 
-$( function() {
+$(document).ready(function(){
     $( ".column" ).sortable({
+      connectWith: ".column",
+      connectWith: ".search_col",
+      handle: ".portlet-header",
+      cancel: ".portlet-toggle",
+      placeholder: "portlet-placeholder ui-corner-all"
+    });
+    $( ".search_col" ).sortable({
+      connectWith: ".search_col",
       connectWith: ".column",
       handle: ".portlet-header",
       cancel: ".portlet-toggle",
@@ -21,4 +29,12 @@ $( function() {
       icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
       icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
     });
-  } );
+
+    $(".btn-slide").click(function(){
+      $("#panel").slideToggle("slow");
+      //$(this).toggleClass("active");
+      $("i").toggleClass("fa-minus fa-plus");
+      //return false;
+    });
+
+  });

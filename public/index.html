@@ -6,19 +6,95 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
      <link rel="stylesheet" href="stylesheet.css">
      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
      <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
 
   <body>
 
-    <div class="transparency">
-      <div class="title">
-        <h1>Food Me!</h1>
-      </div>
-    </div>
+    <header class="transparency">
+      <h1 class="title">Food Me!</h1>
+      <p class="intro">Looking to plan your meals for a week? Search Yummly's recipes, drag and drop onto your weekly meal plan!</p>
+        <!-- FOOD / RECIPE SEARCH MENU -->
+        <section class="top_search">
+          <p class="slide"><a href="#" class="btn-slide">Search for Food and Recipes! <i class="fa fa-minus" aria-hidden="true"></i></a></p>
+          <div id="panel">
+            <div class="sidesearch">
+               <p>Search for Recipes:</p>
+               <form id="foodsearch">
+                 <select name="search">
+                   <option value="chicken">Chicken</option>
+                   <option value="beef">Beef</option>
+                   <option value="turkey">Turkey</option>
+                   <option value="vegetarian">Vegan</option>
+                   <option value="kids">Kid Friendly</option>
+                   <option value="dessert">Desserts</option>
+                 </select>
+                 <p>OR, Search for food by type:</p>
+                 <input type="text" name="searchbox">
+                 <p><input type="submit" name="submit" value="Search"></p>
+               </form>
+          </div>
+
+        <section class="search_results">
+
+          <section class="search_col">
+              <div class="column">
+                <div class="portlet">
+                  <div class="portlet-header">Omlette</div>
+                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
+                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+          </section>
+
+          <section class="search_col">
+              <div class="column">
+                <div class="portlet">
+                  <div class="portlet-header">Omlette</div>
+                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
+                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+          </section>
+
+          <section class="search_col">
+              <div class="column">
+                <div class="portlet">
+                  <div class="portlet-header">Omlette</div>
+                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
+                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+          </section>
+
+          <section class="search_col">
+              <div class="column">
+                <div class="portlet">
+                  <div class="portlet-header">Omlette</div>
+                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
+                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+          </section>
+                    
+        </section>
+
+
+
+
+
+        </div>
+        </section>
+
+    </header>
 
   <!-- ROW 1 - Monday -->
-  <div class="week_col">
+  <section class="week_col">
     <div class="header">
       Monday
     </div>
@@ -37,10 +113,10 @@
           </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- ROW 2 - Tuesday -->
-  <div class="week_col">
+  <section class="week_col">
     <div class="header">
       Tuesday
     </div>
@@ -53,10 +129,9 @@
       </div>
 
     </div>
-  </div>
+  </section>
 
-
-  <div class="week_col">
+  <section class="week_col">
     <div class="header">
       Wednesday
     </div>
@@ -75,9 +150,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="week_col">
+  <section class="week_col">
     <div class="header">
       Thursday
     </div>
@@ -96,9 +171,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="week_col">
+  <section class="week_col">
     <div class="header">
       Friday
     </div>
@@ -118,32 +193,35 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- FOOD / RECIPE SEARCH MENU -->
-  <div class="week_col">
+  <section class="week_col">
+    <div class="header">
+      Saturday
+    </div>
+      <div class="column">
+        <div class="portlet">
+          <div class="portlet-header">Feeds</div>
+          <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+            <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+          </div>
+        </div>
 
-  <div class="search_menu">
-      <a href="#show"class="show">Show Search</a>
-      <a href="#hide"class="hide">Hide Search</a>
-      <div id="cont">Food / Recipe Search
-        <p>Search for Recipes:</p>
-        <form id="foodsearch">
-          <select name="search">
-            <option value="chicken">Chicken</option>
-            <option value="beef">Beef</option>
-            <option value="turkey">Turkey</option>
-            <option value="vegetarian">Vegan</option>
-            <option value="kids">Kid Friendly</option>
-            <option value="dessert">Desserts</option>
-          </select>
-          <p>Search for food by type:</p>
-          <input type="text" name="searchbox">
-          <p><input type="submit" name="submit" value="Search"></p>
-        </form>
+        <div class="header">
+          Sunday
+        </div>
+      <div class="portlet">
+        <div class="portlet-header">News</div>
+        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+        </div>
       </div>
-   </div>
- </div>
+    </div>
+  </section>
+
+
+
+
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
