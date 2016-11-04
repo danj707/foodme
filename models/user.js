@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-//var bcrypt = require('bcryptjs');
+var bcrypt = require('bcryptjs');
 
 var UserSchema = new mongoose.Schema({
     username: {
@@ -11,7 +11,40 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    team_name: String,
+    email: String,
+    menu : [
+      monday = {
+        breakfast: [String, Number],
+        lunch: [String, Number],
+        dinner: [String, Number]
+      },
+      tuesday = {
+        breakfast: String,
+        lunch: String,
+        dinner: String
+      },
+      wednesday = {
+        breakfast: String,
+        lunch: String,
+        dinner: String
+      },
+      thursday = {
+        breakfast: String,
+        lunch: String,
+        dinner: String
+      },
+      friday = {
+        breakfast: String,
+        lunch: String,
+        dinner: String
+      },
+      weekend = {
+        breakfast: String,
+        lunch: String,
+        dinner: String
+      },
+  ],
+  faves : Array,
 });
 
 UserSchema.methods.validatePassword = function(password, callback) {

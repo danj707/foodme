@@ -1,230 +1,277 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>FoodMe - Weekly Meal Planner and Recipe Search</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-     <link rel="stylesheet" href="stylesheet.css">
-     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
 
-  <body>
+<body>
 
-    <header class="transparency">
-      <h1 class="title">Food Me!</h1>
-      <p class="intro">Looking to plan your meals for a week? Search Yummly's recipes, drag and drop onto your weekly meal plan!</p>
-        <!-- FOOD / RECIPE SEARCH MENU -->
-        <section class="top_search">
-          <p class="slide"><a href="#" class="btn-slide">Search for Food and Recipes! <i class="fa fa-minus" aria-hidden="true"></i></a></p>
-          <div id="panel">
+    <!-- Outside container for page layout -->
+    <section class="container">
+        <header class="transparency">
+            <h1 class="title">Food Me!</h1>
+            <p class="intro">Looking to plan your meals for a week? Search Yummly's recipes, drag and drop onto your weekly meal plan!</p>
+        </header>
+        <!-- End layout container  -->
+
+        <!-- Column 1 - Monday Content -->
+        <section class="mon_col">
+            <div class="header">
+                Monday
+            </div>
+            <div class="column">
+                <div class="portlet" id="123151">
+                    <div class="portlet-header">Omlette</div>
+                    <div class="portlet-content">2 eggs, ham, bacon. Cook on low, 10 min. Eat!
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+
+                <div class="portlet">
+                    <div class="portlet-header">Sandwiches</div>
+                    <div class="portlet-content">Ham, turkey. Brown 10 min, both sides, serve and enjoy.
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Column 2 - Tuesday -->
+        <section class="tues_col">
+            <div class="header">
+                Tuesday
+            </div>
+            <div class="column">
+                <div class="portlet">
+                    <div class="portlet-header">Beef Ribs</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Column 3 - Wednesday -->
+        <section class="wed_col">
+            <div class="header">
+                Wednesday
+            </div>
+            <div class="column">
+                <div class="portlet">
+                    <div class="portlet-header">Pasta</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+
+                <div class="portlet">
+                    <div class="portlet-header">Pizza</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Column 4 - Thursday -->
+        <section class="thurs_col">
+            <div class="header">
+                Thursday
+            </div>
+            <div class="column">
+                <div class="portlet">
+                    <div class="portlet-header">Cheeseburger</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+
+                <div class="portlet">
+                    <div class="portlet-header">Ice Cream</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Column 2 - Friday -->
+        <section class="fri_col">
+            <div class="header">
+                Friday
+            </div>
+            <div class="column">
+                <div class="portlet">
+                    <div class="portlet-header">Pot Pie</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+
+
+                <div class="portlet">
+                    <div class="portlet-header">Cereal</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Column 2 - Weekend -->
+        <section class="weekend_col">
+            <div class="header">
+                Saturday
+            </div>
+            <div class="column">
+                <div class="portlet">
+                    <div class="portlet-header">McDonalds</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+
+                <div class="header">
+                    Sunday
+                </div>
+                <div class="portlet">
+                    <div class="portlet-header">Chicken</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                        <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+
+    <!-- FOOD / RECIPE SEARCH MENU -->
+    <section class="side_search">
+        <!-- Headers for slide down panel -->
+        <p class="slide"><a href="#" class="search-slide">Search for Food and Recipes! <i class="fa fa-plus" aria-hidden="true"></i></a></p>
+        <!-- Slide down panel itself, hidden on load -->
+        <div id="panel">
             <div class="sidesearch">
-               <p>Search for Recipes:</p>
-               <form id="foodsearch">
-                 <select name="search">
-                   <option value="chicken">Chicken</option>
-                   <option value="beef">Beef</option>
-                   <option value="turkey">Turkey</option>
-                   <option value="vegetarian">Vegan</option>
-                   <option value="kids">Kid Friendly</option>
-                   <option value="dessert">Desserts</option>
-                 </select>
-                 <p>OR, Search for food by type:</p>
-                 <input type="text" name="searchbox">
-                 <p><input type="submit" name="submit" value="Search"></p>
-               </form>
-          </div>
+                <form id="foodsearch">
+                    <p class="search_headers">Search for Recipes:</p>
+                    <select name="search">
+             <option value="chicken">Chicken</option>
+             <option value="beef">Beef</option>
+             <option value="turkey">Turkey</option>
+             <option value="vegetarian">Vegan</option>
+             <option value="kids">Kid Friendly</option>
+             <option value="dessert">Desserts</option>
+           </select>
+                    <p class="search_headers">-OR-</p>
+                    <p class="search_headers">Search for food by type:</p>
+                    <input type="text" name="searchbox" width="60%">
+                    <p><input type="submit" name="submit" value="Search"></p>
+                </form>
+                <hr>
+            </div>
 
-        <section class="search_results">
+            <!-- Results Go in Here -->
+            <section class="results">
+                <h3>Search Results</h3>
+                <section class="week_col">
+                    <div class="column">
 
-          <section class="search_col">
-              <div class="column">
-                <div class="portlet">
-                  <div class="portlet-header">Omlette</div>
-                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
-                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                        <!-- Search Result #1 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Chicken</div>
+                            <div class="portlet-content">2 pieces of chicken, 1 egg, beat 5 min, cook 450 for 10 minutes.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
+                        <!-- Result #2 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Ribs</div>
+                            <div class="portlet-content">1lb Beef Ribs, season, cook 1 hr.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
+                        <!-- Result #3 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Ham</div>
+                            <div class="portlet-content">1 Ham, cook for 45 min. Eat.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
+                        <!-- Result #4 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Pie</div>
+                            <div class="portlet-content">Make big pie, add ice cream and eat.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
+                        <!-- Result #5 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Pot Pie</div>
+                            <div class="portlet-content">Reheat Chicken Pot Pie, add pepper. Cook for 50 minutes on 200.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-            </div>
-          </section>
+                </section>
+            </section>
+        </div>
+    </section>
 
-          <section class="search_col">
-              <div class="column">
-                <div class="portlet">
-                  <div class="portlet-header">Omlette</div>
-                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
-                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+    <!-- Saved Faves Menu -->
+    <section class="side_faves">
+        <p class="slide_faves"><a href="#" class="faves-slide">See My Faves <i class="fa fa-plus" aria-hidden="true"></i></a></p>
+        <div id="panel_faves">
+            <div class="favelist">
+                Saved Faves!
+            </div>
+
+            <!-- Faves Menu options Go in Here -->
+            <section class="faves">
+                <h3>Favorite Recipes!</h3>
+                <section class="week_col">
+                    <div class="column">
+
+                        <!-- Faves Result #1 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Chicken</div>
+                            <div class="portlet-content">2 pieces of chicken, 1 egg, beat 5 min, cook 450 for 10 minutes.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
+                        <!-- Faves Result #2 -->
+                        <div class="portlet">
+                            <div class="portlet-header">Ribs</div>
+                            <div class="portlet-content">1lb Beef Ribs, season, cook 1 hr.
+                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-            </div>
-          </section>
-
-          <section class="search_col">
-              <div class="column">
-                <div class="portlet">
-                  <div class="portlet-header">Omlette</div>
-                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
-                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                    </div>
-                </div>
-            </div>
-          </section>
-
-          <section class="search_col">
-              <div class="column">
-                <div class="portlet">
-                  <div class="portlet-header">Omlette</div>
-                    <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
-                      <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                    </div>
-                </div>
-            </div>
-          </section>
-                    
-        </section>
-
-
-
-
-
+                </section>
+            </section>
         </div>
-        </section>
+    </section>
 
-    </header>
-
-  <!-- ROW 1 - Monday -->
-  <section class="week_col">
-    <div class="header">
-      Monday
-    </div>
-      <div class="column">
-        <div class="portlet">
-          <div class="portlet-header">Omlette</div>
-            <div class="portlet-content">2 eggs, ham, bacon.  Cook on low, 10 min.  Eat!
-              <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-            </div>
-        </div>
-
-      <div class="portlet">
-        <div class="portlet-header">Sandwiches</div>
-          <div class="portlet-content">Ham, turkey.  Brown 10 min, both sides, serve and enjoy.
-              <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-          </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ROW 2 - Tuesday -->
-  <section class="week_col">
-    <div class="header">
-      Tuesday
-    </div>
-    <div class="column">
-      <div class="portlet">
-        <div class="portlet-header">Shopping</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="week_col">
-    <div class="header">
-      Wednesday
-    </div>
-    <div class="column">
-      <div class="portlet">
-        <div class="portlet-header">Links</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-        </div>
-      </div>
-
-      <div class="portlet">
-        <div class="portlet-header">Images</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="week_col">
-    <div class="header">
-      Thursday
-    </div>
-      <div class="column">
-        <div class="portlet">
-          <div class="portlet-header">Feeds</div>
-          <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-            <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-          </div>
-        </div>
-
-      <div class="portlet">
-        <div class="portlet-header">News</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="week_col">
-    <div class="header">
-      Friday
-    </div>
-      <div class="column">
-        <div class="portlet">
-          <div class="portlet-header">Feeds</div>
-          <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-            <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-          </div>
-        </div>
-
-
-      <div class="portlet">
-        <div class="portlet-header">News</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="week_col">
-    <div class="header">
-      Saturday
-    </div>
-      <div class="column">
-        <div class="portlet">
-          <div class="portlet-header">Feeds</div>
-          <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-            <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-          </div>
-        </div>
-
-        <div class="header">
-          Sunday
-        </div>
-      <div class="portlet">
-        <div class="portlet-header">News</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-          <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-
-
+    <!-- script tags -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="app.js"></script>
-  </body>
+    <!-- Ending script tags -->
+
+</body>
 </html>
