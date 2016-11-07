@@ -13,6 +13,32 @@
 
 <body>
 
+  <section class="login_transparency">
+      <h1>Welcome to Food Me!</h1>
+      <img src="images/favicon.ico">
+
+      <h3>Login below to FoodMe!<p>
+        Search, plan, eat, yum.</h3>
+
+      <form id="login" action="login" class="login_form">
+          <p>
+              <label id="username">Username:
+                  <input type="text" name="username" id="username" placeholder="username" required></input>
+              </label>
+          </p>
+
+          <p>
+              <label id="username">Password:
+                  <input type="password" name="password" id="password" placeholder="password" required></input>
+              </label>
+          </p>
+          <p class="login_error"></p>
+          <input type="submit" id="login" value="Login"></input>
+      </form>
+          <p><a href="#" class="new_user"><i class="fa fa-cutlery" aria-hidden="true"></i>New User? - Click to Register</a></p>
+  </section>
+
+
     <!-- Outside container for page layout -->
     <section class="container">
         <header class="transparency">
@@ -161,70 +187,33 @@
         <!-- Slide down panel itself, hidden on load -->
         <div id="panel">
             <div class="sidesearch">
-                <form id="foodsearch">
+                <form id="foodsearch" action="search" method="get">
                     <p class="search_headers">Search for Recipes:</p>
-                    <select name="search">
-             <option value="chicken">Chicken</option>
-             <option value="beef">Beef</option>
-             <option value="turkey">Turkey</option>
-             <option value="vegetarian">Vegan</option>
-             <option value="kids">Kid Friendly</option>
-             <option value="dessert">Desserts</option>
-           </select>
+                    <select name="recipe_search" id="recipe_search">
+                      <option selected="true" disabled="true">Choose food type</option>
+                      <option id="1" name="chicken" value="chicken">Chicken</option>
+                      <option id="2" name="beef" value="beef">Beef</option>
+                      <option id="3" name="turkey" value="turkey">Turkey</option>
+                      <option id="4" name="vegan" value="vegetarian">Vegan</option>
+                      <option id="5" name="kid" value="kids">Kid Friendly</option>
+                      <option id="6" name="dessert" value="dessert">Desserts</option>
+                    </select>
                     <p class="search_headers">-OR-</p>
                     <p class="search_headers">Search for food by type:</p>
-                    <input type="text" name="searchbox" width="60%">
+                    <input type="text" id="food_search" name="food_search">
+                    <button type="reset" value="clear">Clear</button>
                     <p><input type="submit" name="submit" value="Search"></p>
+                    <p class="search_error"></p>
                 </form>
                 <hr>
             </div>
 
             <!-- Results Go in Here -->
             <section class="results">
-                <h3>Search Results</h3>
+
                 <section class="week_col">
-                    <div class="column">
-
-                        <!-- Search Result #1 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Chicken</div>
-                            <div class="portlet-content">2 pieces of chicken, 1 egg, beat 5 min, cook 450 for 10 minutes.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
-
-                        <!-- Result #2 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Ribs</div>
-                            <div class="portlet-content">1lb Beef Ribs, season, cook 1 hr.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
-
-                        <!-- Result #3 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Ham</div>
-                            <div class="portlet-content">1 Ham, cook for 45 min. Eat.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
-
-                        <!-- Result #4 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Pie</div>
-                            <div class="portlet-content">Make big pie, add ice cream and eat.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
-
-                        <!-- Result #5 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Pot Pie</div>
-                            <div class="portlet-content">Reheat Chicken Pot Pie, add pepper. Cook for 50 minutes on 200.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
-
+                    <div class="column_results">
+                      <!-- Result data goes in here -->
                     </div>
                 </section>
             </section>

@@ -16,12 +16,6 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
-form {
-    background: lightgray;
-    border-radius: 1px;
-    padding: 5px;
-}
-
 body {
     padding-top: 10px;
     background-image: url("images/background.jpg");
@@ -34,15 +28,70 @@ h1 {
     font-size: 40px;
     color: white;
 }
+h3 {
+    font-size:18px;
+    color:white;
+}
+
+form #foodsearch {
+    background: lightgray;
+    border-radius: 1px;
+    padding: 5px;
+}
+
+form #login {
+    padding:10px;
+}
+
+input {
+  padding:3px;
+  margin:5px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.login_error {
+  background:red;
+  font-size:20px;
+  color:black;
+  border-radius:1px;
+}
+.search_error {
+  background:red;
+  font-size:20px;
+  color:black;
+  border-radius:1px;
+}
+.new_user {
+  color:lightgreen;
+}
+
+.login_transparency {
+  vertical-align:middle;
+  text-align:center;
+  margin:auto;
+  width:30%;
+  background-image: url("images/transparent.jpg");
+  border-radius: 0.5rem;
+  padding-top: 2rem;
+  margin-bottom: 1rem;
+  margin-top:15%;
+  margin-left: auto;
+  margin-right: auto;
+  padding:1rem;
+}
 
 .container {
-    background: darkgray;
-    border: 2px solid black;
-    border-radius: 2px;
+    background: url("images/transparent.jpg");
+    border-radius: 0.5rem;
     padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-bottom: 25px;
+    margin-top:5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding:25px;
 }
 
 .transparency {
@@ -99,6 +148,7 @@ h1 {
     width: 20%;
     border-radius: 2px;
     border: 1px solid black;
+    cursor:pointer;
 }
 
 #panel {
@@ -176,7 +226,7 @@ h1 {
 
 .results {
     display: inline-block;
-    overflow: scroll;
+    overflow: auto;
     width: 100%;
     height: 400px;
     background: darkgray;
@@ -196,7 +246,10 @@ h1 {
     display: inline-block;
     overflow: scroll;
 }
-
+.highlight {
+  background:yellow;
+  font-weight:bold;
+}
 .portlet {
     text-align: center;
     margin: 0 1em 1em 0;
