@@ -15,12 +15,16 @@
     -webkit-padding-end: 0px;
     font-family: 'Ubuntu', sans-serif;
 }
+html {
+    background: rgba(0, 0, 0, 0) url("../images/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
 body {
     padding-top: 10px;
-    background-image: url("images/background.jpg");
-    background-size: auto;
-    background-repeat: no-repeat;
     text-align: center;
 }
 

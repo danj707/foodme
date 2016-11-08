@@ -13,30 +13,30 @@
 
 <body>
 
-  <section class="login_transparency">
-      <h1>Welcome to Food Me!</h1>
-      <img src="images/favicon.ico">
+    <section class="login_transparency">
+        <h1>Welcome to Food Me!</h1>
+        <img src="images/favicon.ico">
 
-      <h3>Login below to FoodMe!<p>
+        <h3>Login below to FoodMe!<p>
         Search, plan, eat, yum.</h3>
 
-      <form id="login" action="login" class="login_form">
-          <p>
-              <label id="username">Username:
+        <form id="login" action="login" class="login_form">
+            <p>
+                <label id="username">Username:
                   <input type="text" name="username" id="username" placeholder="username" required></input>
               </label>
-          </p>
+            </p>
 
-          <p>
-              <label id="username">Password:
+            <p>
+                <label id="username">Password:
                   <input type="password" name="password" id="password" placeholder="password" required></input>
               </label>
-          </p>
-          <p class="login_error"></p>
-          <input type="submit" id="login" value="Login"></input>
-      </form>
-          <p><a href="#" class="new_user"><i class="fa fa-cutlery" aria-hidden="true"></i>New User? - Click to Register</a></p>
-  </section>
+            </p>
+            <p class="login_error"></p>
+            <input type="submit" id="login" value="Login"></input>
+        </form>
+        <p><a href="#" class="new_user"><i class="fa fa-cutlery" aria-hidden="true"></i>New User? - Click to Register</a></p>
+    </section>
 
 
     <!-- Outside container for page layout -->
@@ -191,12 +191,15 @@
                     <p class="search_headers">Search for Recipes:</p>
                     <select name="recipe_search" id="recipe_search">
                       <option selected="true" disabled="true">Choose food type</option>
-                      <option id="1" name="chicken" value="chicken">Chicken</option>
-                      <option id="2" name="beef" value="beef">Beef</option>
-                      <option id="3" name="turkey" value="turkey">Turkey</option>
-                      <option id="4" name="vegan" value="vegetarian">Vegan</option>
-                      <option id="5" name="kid" value="kids">Kid Friendly</option>
-                      <option id="6" name="dessert" value="dessert">Desserts</option>
+                      <option id="1" name="beef" value="beef">Beef</option>
+                      <option id="2" name="chicken" value="chicken">Chicken</option>
+                      <option id="3" name="dessert" value="dessert">Desserts</option>
+                      <option id="4" name="freezer" value="freezer">Freezer Meals</option>
+                      <option id="5" name="italian" value="italian">Italian</option>
+                      <option id="6" name="kid" value="kids">Kid Friendly</option>
+                      <option id="7" name="mexican" value="mexican">Mexican</option>
+                      <option id="8" name="turkey" value="turkey">Turkey</option>
+                      <option id="9" name="veggie" value="vegetarian">Vegetarian</option>
                     </select>
                     <p class="search_headers">-OR-</p>
                     <p class="search_headers">Search for food by type:</p>
@@ -213,7 +216,7 @@
 
                 <section class="week_col">
                     <div class="column_results">
-                      <!-- Result data goes in here -->
+                        <!-- Result data goes in here -->
                     </div>
                 </section>
             </section>
@@ -263,4 +266,5 @@
     <!-- Ending script tags -->
 
 </body>
+
 </html>

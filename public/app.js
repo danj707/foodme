@@ -67,7 +67,9 @@ let demoData = {
 
 //Functions
 
-//receives array of events, pushes specific data into event_arr array of objects for use in children component
+/*receives array of results from Yummly, loops through array and grabs required data, then
+adds a portlet for each search result.
+*/
 function dispSearch (result, index, array) {
 
       let id = result.id;
@@ -77,7 +79,6 @@ function dispSearch (result, index, array) {
    console.log(id, recipe_name, rating, img);
 
    $('div.column_results').append("<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" + id + "><div class='portlet-header ui-widget-header ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" + recipe_name + "</div><div class='portlet-content'>" + "<p>Content</p>" + "<img src=" + img + "><p>Rating:" + rating + "</p></div></div>");
-
 
 }
 
@@ -117,11 +118,14 @@ function newUser(username, password) {
 }
 
 //--newUser API to create a new user from login/signup main page
-function searchAPI(search_params) {
+function searchAPI(recipe_search, food_search) {
     $('p.error').empty();
-    let search_string = search_params;
+    /*PLACEHOLDER FOR NOW, API should be smart enough to know if we're doing a recipe search or
+    a food search */
+    let search_params = recipe_search;
     const app_key = '4cc7572d414ad3533abecb16976baa15';
     const app_id = 'ada49da9';
+    console.log(search_params);
     $.ajax({
         type: "GET",
         url: "http://api.yummly.com/v1/api/recipes?_app_id=" + app_id + "&_app_key=" + app_key + "&q=" + search_params,
@@ -184,6 +188,7 @@ $(document).ready(function() {
             $('p.search_error').text("Please only choose recipes OR food search");
         } else if (recipe_search || food_search) {
             //Search Yummly, can't have both defined, but API call will determine which one to use
+            $('div.column_results').empty();
             searchAPI(recipe_search, food_search);
         } else {
            //didn't select anything!
