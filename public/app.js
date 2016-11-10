@@ -23,83 +23,82 @@ let monday,
     sunday;
 
 let demoData = {
-    username: 'dan',
-    password: 'test',
-    email: 'dan@email.com',
-    //each menu array
-    menu : {
-      monday : [  {id: 'Chicken-Fontaine-12342342',
-                  name: "Chicken Fontaine",
-                  url: "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
-                  rating: 4},
-                  {id: 'Veggie-Lasagna-7234234',
-                  name: "Veggie Lasagna",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 3}
+    "username": "dan",
+    "password": "test",
+    "email": "dan@email.com",
+    "menu" : {
+      "monday" : [  {"id": "Chicken-Fontaine-12342342",
+                  "name": "Chicken Fontaine",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 4},
+                  {"id": "Veggie-Lasagna-7234234",
+                  "name": "Veggie Lasagna",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 3}
       ],
-      tuesday : [ {id: 'Chicken-Marsala-135235',
-                  name: "Chicken Marsala",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 4},
-                  {id: 'Corn-Beef-Hash-34234',
-                  name: "Corned Beef Hash",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 2},
-                  {id: 'Crepes-2342342',
-                  name: "Crepes",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating:4}
+      "tuesday" : [ {"id": "Chicken-Marsala-135235",
+                  "name": "Chicken Marsala",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 4},
+                  {"id": "Corn-Beef-Hash-34234",
+                  "name": "Corned Beef Hash",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 2},
+                  {"id": "Crepes-2342342",
+                  "name": "Crepes",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating":4}
       ],
-      wednesday : [ {id: 'Linguine-531532',
-                  name: "Sausage Linguine",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 4}
+      "wednesday" : [ {"id": "Linguine-531532",
+                  "name": "Sausage Linguine",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 4}
       ],
-      thursday : [ {id: 'Beef-Marsala-135235',
-                  name: "Beef Marsala",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 4},
-                  {id: 'Corn-Beef-Hash-34234',
-                  name: "Corned Beef Hash",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 2},
-                  {id: 'Crepes-2342342',
-                  name: "Crepes",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating:4}
+      "thursday" : [ {"id": "Beef-Marsala-135235",
+                  "name": "Beef Marsala",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 4},
+                  {"id": "Corn-Beef-Hash-34234",
+                  "name": "Corned Beef Hash",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 2},
+                  {"id": "Crepes-2342342",
+                  "name": "Crepes",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating":4}
       ],
-      friday : [ {id: 'Chicken-Marsala-135235',
-                  name: "Chicken Marsala",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 4},
-                  {id: 'Corn-Beef-Hash-34234',
-                  name: "Corned Beef Hash",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 2},
-                  {id: 'Cereal-23423',
-                  name: "Cereal",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating:4},
-                  {id: 'Crepes-2342342',
-                  name: "Crepes",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating:3}
+      "friday" : [ {"id": "Chicken-Marsala-135235",
+                  "name": "Chicken Marsala",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 4},
+                  {"id": "Corn-Beef-Hash-34234",
+                  "name": "Corned Beef Hash",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 2},
+                  {"id": "Cereal-23423",
+                  "name": "Cereal",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating":4},
+                  {"id": "Crepes-2342342",
+                  "name": "Crepes",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating":3}
       ],
-      saturday : [ {id: 'Chicken-Marsala-135235',
-                  name: "Chicken Marsala",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 4},
-                  {id: 'Corn-Beef-Hash-34234',
-                  name: "Corned Beef Hash",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 2}
+      "saturday" : [ {"id": "Chicken-Marsala-135235",
+                  "name": "Chicken Marsala",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 4},
+                  {"id": "Corn-Beef-Hash-34234",
+                  "name": "Corned Beef Hash",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 2}
       ],
-      sunday : [ {id: 'Mac-And-Cheese-61313',
-                  name: "Mac N Cheese",
-                  url: 'https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c',
-                  rating: 1}
-      ],
-    }
+      "sunday" : [ {"id": "Mac-And-Cheese-61313",
+                  "name": "Mac N Cheese",
+                  "url": "https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c",
+                  "rating": 1}
+      ]
+   }
 };
 
 //console.log(demoData.menu);
@@ -299,8 +298,6 @@ $(document).ready(function() {
             //make an array from the list of items in the sort column
             var start_order = $(this).sortable("toArray");
 
-            //Log where we're taking it FROM
-            //console.log(db_obj);
       },
       stop: function (event, ui) {
             ui.item.toggleClass("highlight");
@@ -312,6 +309,9 @@ $(document).ready(function() {
             var selector = ui.item[0].parentElement;
             var end_order = $(selector).sortable("toArray");
             console.log(db_obj.toElement + " is now: " + end_order);
+
+            //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+
       },
       handle: ".portlet-header",
       cancel: ".portlet-toggle",
@@ -325,7 +325,7 @@ $(document).ready(function() {
     start: function (event, ui) {
             console.log("picked up search result item");
             var order = $(".column_results").sortable("serialize", {key:'id'});
-            console.log(order);
+            //console.log(order);
             ui.item.toggleClass("highlight");
    },
     stop: function (event, ui) {
@@ -334,13 +334,6 @@ $(document).ready(function() {
    }, handle: ".portlet-header", cancel: ".portlet-toggle", placeholder: "portlet-placeholder ui-corner-all"});
 
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all").find(".portlet-header").addClass("ui-widget-header ui-corner-all").prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-    $(".portlet-toggle").on("click", function() {
-      console.log('clicked toggler');
-        var icon = $(this);
-        icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-        icon.closest(".portlet").find(".portlet-content").toggle();
-    });
 
     $(".search-slide").click(function() {
         $("#panel").slideToggle("slow");
@@ -351,4 +344,11 @@ $(document).ready(function() {
         $("i").toggleClass("fa-plus fa-minus");
     });
 
+});
+
+$(document).on("click", '.portlet-toggle', function() {
+  console.log('clicked toggler');
+    var icon = $(this);
+    icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+    icon.closest(".portlet").find(".portlet-content").toggle();
 });

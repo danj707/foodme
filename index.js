@@ -122,6 +122,17 @@ function initApp() {
         });
     });
 
+    //Adds menu data to existing user
+    app.post('/update', function(req, res) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        let id = req.body.id;
+        let username = req.body.username;
+        let menu = req.body.menu;
+
+        //do the findOne stuff and update here
+    });
+
     server.listen(3000, function() {
         console.log('Server started, listening on *:3000');
     });
