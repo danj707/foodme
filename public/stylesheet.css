@@ -93,8 +93,8 @@ label {
     padding-top: 10px;
     margin-bottom: 25px;
     margin-top:5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 8%;
+    margin-right: 8%;
     padding:25px;
 }
 
@@ -135,6 +135,10 @@ label {
     text-decoration: underline;
 }
 
+.yellow {
+  color:#f4e842;
+}
+
 .column {
     width: 175px;
     padding-bottom: 20px;
@@ -143,6 +147,7 @@ label {
     padding-right: 5px;
     text-align: center;
     margin: auto;
+    cursor:pointer;
 }
 
 .side_search {
@@ -190,6 +195,7 @@ label {
     width: 20%;
     border-radius: 2px;
     border: 1px solid black;
+    cursor:pointer;
 }
 
 .slide_faves {
