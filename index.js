@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 var app = express();
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -122,15 +123,64 @@ function initApp() {
         });
     });
 
-    //Adds menu data to existing user
+
+    /*  Adds menu data to existing user - DEV USE ONLY
+        This API adds an entry for the monday menu only, for testing, to see the DB with data.  Takes the unique user _id field as key, and updates the monday record.
+    */
+
     app.post('/update', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        let id = req.body.id;
-        let username = req.body.username;
-        let menu = req.body.menu;
+        var _id = req.body._id;
 
-        //do the findOne stuff and update here
+
+        //Execute the findByID, assign it to a promise if it succeeds
+        var promise = User.findById({_id:_id}).exec();
+
+        //After receiving the promise of a successful find, execute the following
+        promise.then(function(user) {
+          //Do updating stuff here
+
+          console.log("Doing some DB updating stuff here");
+
+        //   user.menu = { "monday" : [{"id": "Beef-Fontaine-12342342",
+        //                   "name": "Chicken Fontaine",
+        //                   "url": "<img src='https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c'></img>",
+        //                   "rating": 4}
+        //                   ]
+        //             }
+
+          return user.save(); // returns a promise
+        })
+        //then do something else
+        .then(function(user) {
+          console.log('updated user: ' + user.username);
+          // do something with updated user
+                return res.json(user);
+        })
+        //catch-all for errors
+        .catch(function(err){
+          // just need one of these
+          console.log('An error occurred:', err);
+        });
+
+
+    });
+
+    /* Return a user's menu object for display on the main page, typically done once after login */
+    app.get('/menu', function(req, res) {
+        var _id = req.params._id;
+        User.findOne({
+            _id : _id
+        }, function(err, items) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            } else {
+                res.json(items);
+            }
+        });
     });
 
     server.listen(3000, function() {
