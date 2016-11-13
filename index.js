@@ -131,31 +131,65 @@ function initApp() {
     app.post('/update', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        var _id = req.body._id;
-
+        var uid = req.body.uid;
+        var fromElement = req.body.fromElement;
+        var toElement = req.body.toElement;
+        var foodID = req.body.foodID;
+        var name = req.body.name;
+        var url = req.body.url;
+        var rating = req.body.rating;
+        //console.log(uid, fromElement,toElement,foodID,name,url,rating);
 
         //Execute the findByID, assign it to a promise if it succeeds
-        var promise = User.findById({_id:_id}).exec();
+        var promise = User.findById({_id:uid}).exec();
 
         //After receiving the promise of a successful find, execute the following
         promise.then(function(user) {
-          //Do updating stuff here
+          //Do add here
+            user.menu[toElement] = [{"foodID": foodID,
+                            "name": name,
+                            "url": url,
+                            "rating": rating
+                        }]
 
-          console.log("Doing some DB updating stuff here");
-
-        //   user.menu = { "monday" : [{"id": "Beef-Fontaine-12342342",
-        //                   "name": "Chicken Fontaine",
-        //                   "url": "<img src='https://lh3.googleusercontent.com/6QJSiZWvnrnF4KJpgBeFd0U3aeZ1Zxrl7DQaaaT0kaOFPT724msNVWZbr6MWzb6lDxnb6q719RhXMNzAV9zLCjk=s90-c'></img>",
-        //                   "rating": 4}
-        //                   ]
-        //             }
-
+            console.log(`Successfully added recipe ${name} TO ${toElement}`);
           return user.save(); // returns a promise
         })
-        //then do something else
+        //Do remove here
         .then(function(user) {
-          console.log('updated user: ' + user.username);
-          // do something with updated user
+            return res.json(user);
+        })
+        //catch-all for errors
+        .catch(function(err){
+          // just need one of these
+          console.log('An error occurred:', err);
+        });
+    });
+
+    //Delete a menu item (actually just set it to null) in the DB
+    app.delete('/remove/:foodID', function(req, res) {
+        var uid = req.body.uid;
+        var fromElement = req.body.fromElement;
+        var foodID = req.body.foodID;
+        console.log(uid, fromElement, foodID);
+
+        //Execute the findByID, assign it to a promise if it succeeds
+        var promise = User.findById({_id:uid}).exec();
+
+        //After receiving the promise of a successful find, execute the following
+        promise.then(function(user) {
+            console.log(user.menu[fromElement]);
+          //Do updating stuff here
+            user.menu[fromElement] = [{"foodID": foodID,
+            "name": "",
+            "url": "",
+            "rating": ""}]
+
+            console.log(`Successfully removed recipe ${foodID} FROM ${fromElement}`);
+          return user.save(); // returns a promise
+        })
+        .then(function(user) {
+            console.log("Removal successful");
                 return res.json(user);
         })
         //catch-all for errors
@@ -163,8 +197,6 @@ function initApp() {
           // just need one of these
           console.log('An error occurred:', err);
         });
-
-
     });
 
     /* Return a user's menu object for display on the main page, typically done once after login */
@@ -181,6 +213,20 @@ function initApp() {
                 res.json(items);
             }
         });
+    });
+
+    //REMOVES Team by ID from DB
+    app.delete('/users/:id', function(req,res) {
+       User.remove({
+           _id: req.params.id
+       }, function(err,item) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            }
+            res.status(201).json(item);
+       });
     });
 
     server.listen(3000, function() {

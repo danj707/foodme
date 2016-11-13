@@ -13,19 +13,19 @@ var UserSchema = new mongoose.Schema({
     },
     email: String,
     menu : {
-      monday : [  {id: String, name: String, url: String, rating: Number}
+      monday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
-      tuesday : [  {id: String, name: String, url: String, rating: Number}
+      tuesday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
-      wednesday : [  {id: String, name: String, url: String, rating: Number}
+      wednesday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
-      thursday : [  {id: String, name: String, url: String, rating: Number}
+      thursday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
-      friday : [  {id: String, name: String, url: String, rating: Number}
+      friday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
-      saturday : [  {id: String, name: String, url: String, rating: Number}
+      saturday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
-      sunday : [  {id: String, name: String, url: String, rating: Number}
+      sunday : [  {foodID: String, name: String, url: String, rating: Number}
       ],
   },
   faves : Array,

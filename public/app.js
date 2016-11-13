@@ -2,16 +2,27 @@
 
 /* global $ */
 
-/*Demo Data, mimicking the Json object we should get back from Yummly, after being mapped into our result object.  Precursor to displaying the menu
-
-Overall Menu Array
-6 Day objects
-Each Day has an object with arrays for each 'meal', breakfast, etc.
-The day meal object contains all the relevant information for each 'Meal' card, such
-as the name, content, recipe id number, url for image, etc
-*/
-
 let user_data_obj = '';
+
+//data object constructor
+function db_obj () {
+  this.uid = '',
+  this.foodID = '',
+  this.fromElement = '',
+  this.toElement = ''
+  this.name = '',
+  this.url = '',
+  this.rating = ''
+}
+
+db_obj.prototype = {
+  updateObject:function () {
+  console.log("test");
+  }
+}
+
+//construct a new obj
+  var db_obj = new db_obj();
 
 //Function Definitions
 
@@ -31,7 +42,7 @@ function genRating (rating) {
 
 function dispSearch (result, index, array) {
 
-   let id = result.id;
+   let foodID = result.id;
    let recipe_name = result.recipeName = result.recipeName ? result.recipeName : 'Name';
    let rating = result.rating;
 
@@ -39,15 +50,15 @@ function dispSearch (result, index, array) {
 
    $('div.column_results').append(
       "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
-         id +
+         foodID +
          "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
          recipe_name +
          "</div><div class='portlet-content'>" +
          "<img src=" +
          img +
-         "><p><b>" +
+         "><p>" +
          genRating(rating) +
-         "</b></p></div></div>");
+         "</p></div></div>");
 }
 
 //--loginUser API call to log user into site
@@ -94,7 +105,6 @@ function searchAPI(recipe_search, food_search) {
     let search_params = recipe_search;
     const app_key = '4cc7572d414ad3533abecb16976baa15';
     const app_id = 'ada49da9';
-    //console.log(search_params);
     $.ajax({
         type: "GET",
         url: `http://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
@@ -117,25 +127,59 @@ function mainPage(result) {
 
     /* For displaying the main menu page, use the result jsonp object obtained from logging in user (contains their saved menu data), then loop through it displaying the appropriate portlets in their respective locations
     */
-
-    //console.log(result);
-
+    console.log(result.menu);
     for (var key in result.menu) {
         for(var i=0;i<result.menu[key].length;i++) {
-         $(`div.column#${key}`).append(
-           "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
-              result.menu[key][i].id +
-              "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
-              result.menu[key][i].name +
-              "</div><div class='portlet-content'>" +
-              "<p>Content</p>" +
-              "<img src=" +
-              result.menu[key][i].url +
-              "><p>" +
-              genRating(result.menu[key][i].rating) +
-              "</p></div></div>");
+          if(result.menu[key][i].foodID) {
+            $(`div.column#${key}`).append(
+              "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
+                 result.menu[key][i].foodID +
+                 "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
+                 result.menu[key][i].name +
+                 "</div><div class='portlet-content'>" +
+                 "<img src=" +
+                 result.menu[key][i].url +
+                 "><p>" +
+                 genRating(result.menu[key][i].rating) +
+                 "</p></div></div>");
+          } else {
+              console.log("Empty db entry, skip it");
+          }
         }
     }
+}
+
+//Add a menu item to the DB
+function updateMenu (db_obj) {
+      console.log(db_obj);
+      var q_string = db_obj;
+      $.ajax({
+         type: "POST",
+         url: "/update",
+         data: q_string,
+         dataType: 'json'
+      }).done(function(result) {
+          console.log("Update Successful");
+      }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
+          $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
+      });
+}
+
+//Remove a menu item from the DB
+function removeMenu (db_obj) {
+      console.log(db_obj);
+      var q_string = `uid=${db_obj.uid}&foodID=${db_obj.foodID}&fromElement=${db_obj.fromElement}`;
+      console.log(q_string);
+      $.ajax({
+         type: "DELETE",
+         url: `/remove/${db_obj.foodID}`,
+         data: q_string,
+         dataType: 'json'
+      }).done(function(result) {
+          console.log("Remove Successful");
+      }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
+          $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
+      });
 }
 
 //Document Section
@@ -187,36 +231,14 @@ $(document).ready(function() {
         }
     });
 
-    //data object constructor
-    function db_obj () {
-      this._id = '',
-      this.foodID = '',
-      this.fromElement = '',
-      this.toElement = ''
-      this.name = '',
-      this.url = '',
-      this.rating = ''
-   }
-
-   //write the db_obj method in here!!
-   db_obj.writeMenuObj(db_obj);
-
-
-   //create a new version of the obj
-   var db_obj = new db_obj();
-
+    //Main Menu Column Data
    $(".column").sortable({
       connectWith: ".column, .column_results",
       start: function (event, ui) {
             ui.item.toggleClass("highlight");
 
-            //reset the object each time you pick up a new portlet
-            // db_obj.ID = '';
-            // db_obj.fromElement = '';
-            // db_obj.toElement = '';
-
             //Grab the element the portlet is coming FROM
-            db_obj._id = user_data_obj._id;
+            db_obj.uid = user_data_obj._id;
             db_obj.fromElement = ui.item["0"].parentElement.id;
             db_obj.foodID = ui.item[0].id;
 
@@ -238,7 +260,7 @@ $(document).ready(function() {
 
             db_obj.name = ui.item["0"].children["0"].innerText;
             db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
-            db_obj.rating = ui.item["0"].children[1].children[2].children["0"].attributes[1].nodeValue;
+            db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
 
             // console.log("REMOVE " + db_obj.ID + " FROM: " + db_obj.fromElement + " AND ADD TO: " + db_obj.toElement);
 
@@ -250,9 +272,10 @@ $(document).ready(function() {
             */
 
             //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+            console.log("db update call");
+            updateMenu(db_obj);
 
-            console.log(db_obj);
-            //writeMenuObj(db_obj);
+            //removeMenu(db_obj); --NOT WORKING
 
       },
       handle: ".portlet-header",
@@ -263,17 +286,59 @@ $(document).ready(function() {
       //remove the ability to copy/paste content from the portlets
       .disableSelection();
 
-    $(".column_results").sortable({connectWith: ".column, .column_results",
+      //Search Result column data
+    $(".column_results").sortable({
+    connectWith: ".column, .column_results",
     start: function (event, ui) {
-            console.log("picked up search result item");
-            var order = $(".column_results").sortable("serialize", {key:'id'});
-            //console.log(order);
             ui.item.toggleClass("highlight");
+
+            //Grab the element the portlet is coming FROM
+            db_obj.uid = user_data_obj._id;
+            db_obj.fromElement = ui.item["0"].parentElement.id;
+            db_obj.foodID = ui.item[0].id;
+
+            //make an array from the list of items in the sort column - DEL
+            //var start_order = $(this).sortable("toArray");
    },
     stop: function (event, ui) {
             console.log("dropped search result item");
             ui.item.toggleClass("highlight");
-   }, handle: ".portlet-header", cancel: ".portlet-toggle", placeholder: "portlet-placeholder ui-corner-all"});
+
+            //Grab the element the portlet is going TO
+            var toElement = ui.item["0"].parentElement.id;
+            db_obj.toElement = toElement;
+
+            /* Get the recipe name, image url and rating from the jquery ui data obj
+            wish there was a better way - Too tied into the structure of the html, change one
+            thing and this will all break.  Boo.
+            */
+            console.log(ui.item["0"].children);
+
+            db_obj.name = ui.item["0"].children["0"].innerText;
+            db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
+            db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
+
+
+            // console.log("REMOVE " + db_obj.ID + " FROM: " + db_obj.fromElement + " AND ADD TO: " + db_obj.toElement);
+
+            //Make an array of all the portlets in the TO container, we'll write this whole thing back into the DB
+            /* TODO
+            var selector = ui.item[0].parentElement;
+            var end_order = $(selector).sortable("toArray");
+            console.log(db_obj.toElement + " is now: " + end_order);
+            */
+
+            //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+            console.log(db_obj);
+            updateMenu(db_obj);
+
+   },
+    handle: ".portlet-header",
+    cancel: ".portlet-toggle",
+    placeholder: "portlet-placeholder ui-corner-all"
+  })
+        //remove the ability to copy/paste content from the portlets
+        .disableSelection();
 
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all").find(".portlet-header").addClass("ui-widget-header ui-corner-all").prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
 
