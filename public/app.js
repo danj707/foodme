@@ -1,10 +1,29 @@
+/*
+TODO
+-Remove API just writes null data into the DB, doesnt really remove it
+-Need a delete ability from the main menu, red "X" on left side of the minus bar or a trash can, calls the delete function
+-Can't write more than one data portlet into the DB per dataType
+-Need some type of sorting or ordering ability
+-Add a 'your menu is empty, search and add on left side'
+-Add Chomp to long portlet recipe names
+-Add search for food by type
+-New user registration page
+-When the menu opens, the stars get 'smooshed'
+-Open recipe in new window when click on link in portlet
+-Add faves
+
+DEBUG
+-Why does the updateObject method call the ajax repeatedly?
+
+*/
+
 'use strict';
 
 /* global $ */
 
 let user_data_obj = '';
 
-//data object constructor
+//data object constructor ---------------------
 function db_obj () {
   this.uid = '',
   this.foodID = '',
@@ -24,13 +43,15 @@ db_obj.prototype = {
 //construct a new obj
   var db_obj = new db_obj();
 
-//Function Definitions
+//---------------------------------------------
+
+//FUNCTION DEFINITIONS
 
 /*receives array of results from Yummly, loops through array and grabs required data, then
 adds a portlet for each search result with respective data fields
 */
 
-//Rating star function, build up a star for each rating increment, return the appropriate html
+//--Rating star function, build up a star for each rating increment, return the appropriate html
 function genRating (rating) {
    let html = `<b id='rating' value=${rating} <span>`;
    for(var i=1;i<=rating;i++) {
@@ -40,6 +61,7 @@ function genRating (rating) {
    return html;
 }
 
+//--Display the search results in left side pulldown
 function dispSearch (result, index, array) {
 
    let foodID = result.id;
@@ -61,7 +83,7 @@ function dispSearch (result, index, array) {
          "</p></div></div>");
 }
 
-//--loginUser API call to log user into site
+//--LoginUser API call to log user into site
 function loginUser(username, password) {
     $('p.error').empty();
     let q_string = {
@@ -117,7 +139,7 @@ function searchAPI(recipe_search, food_search) {
     });
 }
 
-//Displays the main layout page, searches the DB by ID, loads menu data and displays page
+//--Displays the main layout page, searches the DB by ID, loads menu data and displays page
 function mainPage(result) {
     $('section.login_transparency').css('display', 'none');
 
@@ -127,7 +149,6 @@ function mainPage(result) {
 
     /* For displaying the main menu page, use the result jsonp object obtained from logging in user (contains their saved menu data), then loop through it displaying the appropriate portlets in their respective locations
     */
-    console.log(result.menu);
     for (var key in result.menu) {
         for(var i=0;i<result.menu[key].length;i++) {
           if(result.menu[key][i].foodID) {
@@ -242,9 +263,7 @@ $(document).ready(function() {
             db_obj.fromElement = ui.item["0"].parentElement.id;
             db_obj.foodID = ui.item[0].id;
 
-            //make an array from the list of items in the sort column - DEL
-            //var start_order = $(this).sortable("toArray");
-
+            removeMenu(db_obj);
       },
       stop: function (event, ui) {
             ui.item.toggleClass("highlight");
@@ -262,20 +281,8 @@ $(document).ready(function() {
             db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
 
-            // console.log("REMOVE " + db_obj.ID + " FROM: " + db_obj.fromElement + " AND ADD TO: " + db_obj.toElement);
-
-            //Make an array of all the portlets in the TO container, we'll write this whole thing back into the DB
-            /* TODO
-            var selector = ui.item[0].parentElement;
-            var end_order = $(selector).sortable("toArray");
-            console.log(db_obj.toElement + " is now: " + end_order);
-            */
-
             //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
-            console.log("db update call");
             updateMenu(db_obj);
-
-            //removeMenu(db_obj); --NOT WORKING
 
       },
       handle: ".portlet-header",
@@ -296,9 +303,7 @@ $(document).ready(function() {
             db_obj.uid = user_data_obj._id;
             db_obj.fromElement = ui.item["0"].parentElement.id;
             db_obj.foodID = ui.item[0].id;
-
-            //make an array from the list of items in the sort column - DEL
-            //var start_order = $(this).sortable("toArray");
+            removeMenu(db_obj);
    },
     stop: function (event, ui) {
             console.log("dropped search result item");
@@ -312,24 +317,11 @@ $(document).ready(function() {
             wish there was a better way - Too tied into the structure of the html, change one
             thing and this will all break.  Boo.
             */
-            console.log(ui.item["0"].children);
 
             db_obj.name = ui.item["0"].children["0"].innerText;
             db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
 
-
-            // console.log("REMOVE " + db_obj.ID + " FROM: " + db_obj.fromElement + " AND ADD TO: " + db_obj.toElement);
-
-            //Make an array of all the portlets in the TO container, we'll write this whole thing back into the DB
-            /* TODO
-            var selector = ui.item[0].parentElement;
-            var end_order = $(selector).sortable("toArray");
-            console.log(db_obj.toElement + " is now: " + end_order);
-            */
-
-            //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
-            console.log(db_obj);
             updateMenu(db_obj);
 
    },

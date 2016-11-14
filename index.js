@@ -180,10 +180,11 @@ function initApp() {
         promise.then(function(user) {
             console.log(user.menu[fromElement]);
           //Do updating stuff here
-            user.menu[fromElement] = [{"foodID": foodID,
-            "name": "",
-            "url": "",
-            "rating": ""}]
+            user.menu[fromElement] = [{"foodID": '',
+            "name": '',
+            "url": '',
+            "rating": ''
+          }]
 
             console.log(`Successfully removed recipe ${foodID} FROM ${fromElement}`);
           return user.save(); // returns a promise
