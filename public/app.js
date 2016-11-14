@@ -1,22 +1,37 @@
 /*
-TODO
+TODO - Improvements and Fixes
 
--Need a delete ability from the main menu, red "X" on left side of the minus bar or a trash can, calls the delete function
+Major:
+-Open portlet in new window when click on link
+-User testing
 
--Need some type of sorting or ordering ability
--Add Chomp to long portlet recipe names
--Add search for food by type
--When the menu opens, the stars get 'smooshed'
--Open recipe in new window when click on link in portlet
--Add faves
+Minor:
+-Dragging from the Faves menu shouldn't remove it, only the trashcan should
+-Sort the days either by sort in place (how they were drag and dropped, or alpha)
+-Email address verification (at least that it's at least a correctly formatted email address)
+-Additional Jquery UI improvements (border when dragging, drag-entry box, etc)
+-Text wrapping of headers; currently running into the fa-minus
+
+All:
+-Interface cleanup
+-Code cleanup & commenting
+-API documentation
+-Description/instruction text
+-Fix searchbox too wide on Yummly search
+-Mobile responsiveness Checks
+-Firefox checks
+-Style buttons
+
+-README
+-Screenshots
 
 DEBUG
 -Why does the updateObject method call the ajax repeatedly?
 
+
 */
 
 'use strict';
-
 /* global $ */
 
 let user_data_obj = '';
@@ -78,7 +93,7 @@ function dispSearch (result, index, array) {
          img +
          "><p>" +
          genRating(rating) +
-         "</p></div></div>");
+         "</p></div><div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
 }
 
 //--LoginUser API call to log user into site
@@ -100,7 +115,6 @@ function loginUser(username, password) {
 
 //--newUser API to create a new user from login/signup main page
 function newUser(new_username, new_password, new_email) {
-  console.log(new_username, new_password, new_email);
     $('p.error').empty();
     var q_string = {
         'new_username': new_username,
@@ -121,12 +135,23 @@ function newUser(new_username, new_password, new_email) {
 
 //-- searchAPI to search the Yummly API, return the recipe/food data jsonp object
 function searchAPI(recipe_search, food_search) {
-    $('p.error').empty();
-    /*PLACEHOLDER FOR NOW, API should be smart enough to know if we're doing a recipe search or
-    a food search */
-    let search_params = recipe_search;
+    //clear the error field
+    $('p.search_error').empty();
+
+    let search_params = 'default';
     const app_key = '4cc7572d414ad3533abecb16976baa15';
     const app_id = 'ada49da9';
+
+    /*PLACEHOLDER FOR NOW, API should be smart enough to know if we're doing a recipe search or
+    a food search */
+    if(recipe_search) {
+      //use the recipe search
+      search_params = recipe_search;
+    } else if(food_search) {
+      //Or, use the food search
+      search_params = food_search;
+    }
+
     $.ajax({
         type: "GET",
         url: `http://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
@@ -141,8 +166,7 @@ function searchAPI(recipe_search, food_search) {
 
 //--Displays the main layout page, searches the DB by ID, loads menu data and displays page
 function mainPage(result) {
-console.log(result);
-    $('p.intro').text(`Welcome ${result.username}!  Pulldown the search on the left to search Yummly's recipies, drag and drop them to your menu, or save to your Faves!`);
+    $('p.intro').text(`Welcome ${result.username}!  Pulldown the search on the left to search Yummly's recipes, drag and drop them to your menu, or save to your Faves!`);
 
     //hide the login and new user pages
     $('section.login_transparency').css('display', 'none');
@@ -157,7 +181,6 @@ console.log(result);
     */
     for (var key in result) {
         for(var i=0;i<result[key].length;i++) {
-
             $(`div.column#${key}`).append(
               "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
                  result[key][i].foodID +
@@ -168,14 +191,15 @@ console.log(result);
                  result[key][i].url +
                  "><p>" +
                  genRating(result[key][i].rating) +
-                 "</p></div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
+                 "</p></div><div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
 
         }
     }
 
     //Also have to prefill the 'faves' menu in case the user has some saved.  No need to wait until expanded.
+
         for(var i=0;i<result.faves.length;i++) {
-            $('div.column#faves').append(
+            $('div.column_faves').append(
               "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
                  result.faves[i].foodID +
                  "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
@@ -185,7 +209,7 @@ console.log(result);
                  result.faves[i].url +
                  "><p>" +
                  genRating(result.faves[i].rating) +
-                 "</p></div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
+                 "</p></div><div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
        }
 }
 
@@ -207,9 +231,7 @@ function updateMenu (db_obj) {
 
 //Remove a menu item from the DB
 function removeMenu (db_obj) {
-      console.log(db_obj);
       var q_string = `uid=${db_obj.uid}&foodID=${db_obj.foodID}&fromElement=${db_obj.fromElement}`;
-      console.log(q_string);
       $.ajax({
          type: "DELETE",
          url: `/remove`,
@@ -286,13 +308,13 @@ $(document).ready(function() {
             searchAPI(recipe_search, food_search);
         } else {
            //didn't select anything!
-            $('p.search_error').text("Please choose from one of the above.");
+            $('p.search_error').text("Please choose from either recipes OR food type.");
         }
     });
 
     //Main Menu Column Data
    $(".column").sortable({
-      connectWith: ".column, .column_results",
+      connectWith: ".column, .column_results, .column_faves",
       start: function (event, ui) {
             ui.item.toggleClass("highlight");
 
@@ -301,6 +323,7 @@ $(document).ready(function() {
             db_obj.fromElement = ui.item["0"].parentElement.id;
             db_obj.foodID = ui.item[0].id;
 
+            console.log("removing from column");
             removeMenu(db_obj);
       },
       stop: function (event, ui) {
@@ -320,6 +343,7 @@ $(document).ready(function() {
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
 
             //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+            console.log("adding to column");
             updateMenu(db_obj);
 
       },
@@ -333,7 +357,7 @@ $(document).ready(function() {
 
       //Search Result column data
     $(".column_results").sortable({
-    connectWith: ".column, .column_results",
+    connectWith: ".column, .column_results, .column_faves",
     start: function (event, ui) {
             ui.item.toggleClass("highlight");
 
@@ -344,7 +368,6 @@ $(document).ready(function() {
             removeMenu(db_obj);
    },
     stop: function (event, ui) {
-            console.log("dropped search result item");
             ui.item.toggleClass("highlight");
 
             //Grab the element the portlet is going TO
@@ -370,17 +393,57 @@ $(document).ready(function() {
         //remove the ability to copy/paste content from the portlets
         .disableSelection();
 
+    $(".column_faves").sortable({
+        connectWith: ".column, .column_results, .column_faves",
+        start: function (event, ui) {
+              ui.item.toggleClass("highlight");
+
+              //Grab the element the portlet is coming FROM
+              db_obj.uid = user_data_obj._id;
+              db_obj.fromElement = ui.item["0"].parentElement.id;
+              db_obj.foodID = ui.item[0].id;
+
+              console.log("removing from column_faves");
+              removeMenu(db_obj);
+        },
+        stop: function (event, ui) {
+              ui.item.toggleClass("highlight");
+
+              //Grab the element the portlet is going TO
+              var toElement = ui.item["0"].parentElement.id;
+              db_obj.toElement = toElement;
+
+              /* Get the recipe name, image url and rating from the jquery ui data obj
+              wish there was a better way - Too tied into the structure of the html, change one
+              thing and this will all break.  Boo.
+              */
+              db_obj.name = ui.item["0"].children["0"].innerText;
+              db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
+              db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
+
+              //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+              console.log("adding to column_faves");
+              updateMenu(db_obj);
+
+        },
+        handle: ".portlet-header",
+        cancel: ".portlet-toggle",
+        placeholder: "portlet-placeholder ui-corner-all",
+        opacity: 0.7,
+        })
+        //remove the ability to copy/paste content from the portlets
+        .disableSelection();
+
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all").find(".portlet-header").addClass("ui-widget-header ui-corner-all").prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
 
     $(".search-slide").click(function() {
         $("#panel").slideToggle("slow");
-        $("i").toggleClass("fa-plus fa-minus");
+        $("i#search").toggleClass("fa-plus fa-minus");
     });
     $(".faves-slide").click(function() {
         $("#panel_faves").slideToggle("slow");
-        $("i").toggleClass("fa-plus fa-minus");
+        $("i#faves").toggleClass("fa-plus fa-minus");
     });
-
 });
 
 $(document).on("click", '.portlet-toggle', function() {
@@ -389,17 +452,31 @@ $(document).on("click", '.portlet-toggle', function() {
     icon.closest(".portlet").find(".portlet-content").toggle();
 });
 
-$(document).on("click", '.fa-trash', function(event, ui) {
-  console.log('delete');
-
+$(document).on("click", '.fa-trash', function(event) {
+console.log(event);
+console.log(db_obj);
   // //Grab the element the portlet is coming FROM
   db_obj.uid = user_data_obj._id;
-  db_obj.fromElement = event.target.parentElement.parentElement.attributes[1].nodeValue;
-  db_obj.foodID = event.target.parentElement.id;
 
-  removeMenu(db_obj);
+  /*Handle where the original target of the delete (trash can clickie) is coming from:
+    -If it's from the search results, just remove the item from the document
+    -If it's in the menu, we need to actually remove it from the DOM AND the Database
 
-  //Clicking the delete also removes it from the DOM
-  $(this).parent().remove();
+  */
+
+  if(event.originalEvent.path[5].attributes["0"].nodeValue === 'results') {
+      $(this).parent().parent().remove();
+  } else {
+    db_obj.uid = user_data_obj._id;
+    db_obj.fromElement = (event.originalEvent.path[3].attributes[1].nodeValue === 'undefined')
+    ?  event.originalEvent.path[3].attributes[1].nodeValue : event.originalEvent.path[3].attributes[1].nodeValue;
+    db_obj.foodID = event.target.parentElement.parentElement.attributes[1].nodeValue;
+    $(this).parent().parent().remove();
+    removeMenu(db_obj);
+  }
+
+
+
+
 
 });

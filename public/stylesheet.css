@@ -21,12 +21,6 @@ a:hover {
   color:white;
 }
 
-.truncate {
-  width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .fa-trash:hover {
   color:red;
   font-size:20px;
@@ -53,6 +47,11 @@ h3 {
     font-size:18px;
     color:white;
 }
+h4 {
+    font-size:10px;
+    font-weight:normal;
+    color:white;
+}
 
 form #foodsearch {
     background: lightgray;
@@ -60,13 +59,17 @@ form #foodsearch {
     padding: 5px;
 }
 
+.label {
+    font-size:16px;
+}
+
 form #login, #register {
     padding:10px;
 }
 
 input {
-  padding:3px;
-  margin:5px;
+  padding:2px;
+  margin:10px;
 }
 
 label {
@@ -77,16 +80,17 @@ label {
   background:red;
   font-size:20px;
   color:black;
-  border-radius:1px;
+  border-radius:2px;
 }
 .search_error {
   background:red;
   font-size:20px;
   color:black;
-  border-radius:1px;
+  border-radius:2px;
 }
-a.new_user {
-  color:lightgreen;
+a:link .new_user {
+  color:white:
+  font-size:24px;
 }
 
 .login_transparency {
@@ -219,7 +223,7 @@ a.new_user {
     height: 75%;
     top: 60;
     right: 0;
-    padding-bottom:15px;
+    padding:15px;
     border:1px solid black;
 }
 
@@ -237,13 +241,19 @@ a.new_user {
     cursor:pointer;
 }
 
+.disclaimer {
+  padding:10px;
+  margin:auto;
+  align-content:center;
+}
+
 .slide_faves {
     margin: 0;
     padding: 0;
     background: skyblue;
     height: 60px;
     border: 2px solid black;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .sidesearch {
@@ -258,7 +268,7 @@ a.new_user {
     background: skyblue;
     height: 60px;
     border: 2px solid black;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .results_col {
@@ -283,6 +293,10 @@ a.new_user {
     text-align: center;
 }
 
+.options {
+  font-size:16px;
+}
+
 .faves {
     display: inline-block;
     overflow: auto;
@@ -294,8 +308,10 @@ a.new_user {
 }
 
 .search_headers {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
 .highlight {

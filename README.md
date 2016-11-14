@@ -1,12 +1,19 @@
-# FoodMe Project
+# FoodMe!
 
 ##Overwhelmed by all your recipes and can't plan your meals for the week?  Have no fear, foodMe is here!  Search recipe/food data from Yummly, create custom meal plans, drag and drop your recipes onto your planning page.
 
-## Interactive SPA using React, mongoDB, JS, jQuery, Node, mongoose/express.
+## Interactive SPA using mongoDB/mongoose, JavaScript (some ES6), jQuery, Node, mongoose/express, bcrypt, nodemailer
 
-![Prototype 1](foodme1.png)
-![Prototype 2](foodme2.png)
-![Prototype 3](foodme3.png)
-![Prototype 4](foodme4.png)
-![Prototype 5](foodme5.png)
-![Animation Example](anim.gif)
+## App Features:
+* Hashed passwords and secure login
+* Interactive SPA
+* Drag and drop "Trello" style Interface
+* Order and arrange your menu according to your schedule
+* Search the Yummly API for recipes or by a food type
+* Save recipes to your "Faves"
+
+## Upcoming Features:
+* Weekly mail of your upcoming menu, including ingredient lists for your shopping trip!
+* Ordering of cards on your menu
+* Update and edit your username/email address
+* Enter your own recipes!

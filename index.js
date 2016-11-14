@@ -76,7 +76,6 @@ function initApp() {
                         return res.status(401).json({message: 'Not found'});
                     } else {
                         console.log("User: " + uname + " logged in.")
-                        sendEmail(items.email);
                         return res.json(items);
                     }
                 });
@@ -107,14 +106,14 @@ function initApp() {
                     username: new_username,
                     password: hash,
                     email: new_email
-                }, function(err, item) {
+                }, function(err, items) {
                     if (err) {
                         return res.status(500).json({message: 'Couldnt create user, already exists'});
                     }
-                    if (item) {
+                    if (items) {
                         console.log("User: " + new_username + " created with hash and email" + new_email);
-                        sendEmail(new_username, new_email);
-                        return res.json(item);
+                        sendEmail(items.email);
+                        return res.json(items);
                     }
                 });
             });
@@ -211,13 +210,13 @@ function initApp() {
         var _id = req.params._id;
         User.findOne({
             _id : _id
-        }, function(err, items) {
+        }, function(err, item) {
             if (err) {
                 return res.status(500).json({
                     message: 'Internal Server Error'
                 });
             } else {
-                res.json(items);
+                res.json(item);
             }
         });
     });
