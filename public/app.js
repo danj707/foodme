@@ -1,13 +1,11 @@
 /*
 TODO
--Remove API just writes null data into the DB, doesnt really remove it
+
 -Need a delete ability from the main menu, red "X" on left side of the minus bar or a trash can, calls the delete function
--Can't write more than one data portlet into the DB per dataType
+
 -Need some type of sorting or ordering ability
--Add a 'your menu is empty, search and add on left side'
 -Add Chomp to long portlet recipe names
 -Add search for food by type
--New user registration page
 -When the menu opens, the stars get 'smooshed'
 -Open recipe in new window when click on link in portlet
 -Add faves
@@ -34,11 +32,11 @@ function db_obj () {
   this.rating = ''
 }
 
-db_obj.prototype = {
-  updateObject:function () {
-  console.log("test");
-  }
-}
+
+// db_obj.prototype = {
+//   updateObject:function () {
+//   }
+// }
 
 //construct a new obj
   var db_obj = new db_obj();
@@ -53,7 +51,7 @@ adds a portlet for each search result with respective data fields
 
 //--Rating star function, build up a star for each rating increment, return the appropriate html
 function genRating (rating) {
-   let html = `<b id='rating' value=${rating} <span>`;
+   let html = `Rating: <b id='rating' value=${rating} <span>`;
    for(var i=1;i<=rating;i++) {
       html += '<i class="fa fa-star yellow" aria-hidden="true"></i>';
    }
@@ -101,11 +99,13 @@ function loginUser(username, password) {
 }
 
 //--newUser API to create a new user from login/signup main page
-function newUser(username, password) {
+function newUser(new_username, new_password, new_email) {
+  console.log(new_username, new_password, new_email);
     $('p.error').empty();
     var q_string = {
-        'username': username,
-        'password': password
+        'new_username': new_username,
+        'new_password': new_password,
+        'new_email': new_email
     };
     $.ajax({type: "POST", url: "/users/create", data: q_string, dataType: 'json'}).done(function(result) {
         if (result.username) {
@@ -115,7 +115,7 @@ function newUser(username, password) {
             $('p.newuser_error').text("Sorry, that username exists already, try another username");
         }
     }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
-        $('p.newuser_error').text("We're sorry, there was a system error, try again.");
+        $('p.register_error').text("We're sorry, there was a system error, try again.");
     });
 }
 
@@ -141,8 +141,14 @@ function searchAPI(recipe_search, food_search) {
 
 //--Displays the main layout page, searches the DB by ID, loads menu data and displays page
 function mainPage(result) {
-    $('section.login_transparency').css('display', 'none');
+console.log(result);
+    $('p.intro').text(`Welcome ${result.username}!  Pulldown the search on the left to search Yummly's recipies, drag and drop them to your menu, or save to your Faves!`);
 
+    //hide the login and new user pages
+    $('section.login_transparency').css('display', 'none');
+    $('section.newuser_transparency').css('display','none');
+
+    //show the main page
     $('section.container').css('display', 'block');
     $('section.side_search').css('display', 'block');
     $('section.side_faves').css('display', 'block');
@@ -151,7 +157,7 @@ function mainPage(result) {
     */
     for (var key in result) {
         for(var i=0;i<result[key].length;i++) {
-          if(result[key][i].foodID) {
+
             $(`div.column#${key}`).append(
               "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
                  result[key][i].foodID +
@@ -162,12 +168,25 @@ function mainPage(result) {
                  result[key][i].url +
                  "><p>" +
                  genRating(result[key][i].rating) +
-                 "</p></div></div>");
-          } else {
-              console.log("Empty db entry, skip it");
-          }
+                 "</p></div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
+
         }
     }
+
+    //Also have to prefill the 'faves' menu in case the user has some saved.  No need to wait until expanded.
+        for(var i=0;i<result.faves.length;i++) {
+            $('div.column#faves').append(
+              "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
+                 result.faves[i].foodID +
+                 "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
+                 result.faves[i].name +
+                 "</div><div class='portlet-content'>" +
+                 "<img src=" +
+                 result.faves[i].url +
+                 "><p>" +
+                 genRating(result.faves[i].rating) +
+                 "</p></div><i class='fa fa-trash fa-lg' aria-hidden='true'></i></div>");
+       }
 }
 
 //Add a menu item to the DB
@@ -193,7 +212,7 @@ function removeMenu (db_obj) {
       console.log(q_string);
       $.ajax({
          type: "DELETE",
-         url: `/remove/${db_obj.foodID}`,
+         url: `/remove`,
          data: q_string,
          dataType: 'json'
       }).done(function(result) {
@@ -209,6 +228,7 @@ $(document).ready(function() {
     $('section.login_transparency').css('display', 'block');
 
     //hide the search and display blocks until logged in
+    $('section.newuser_transparency').css('display','none');
     $('section.container').css('display', 'none');
     $('section.side_search').css('display', 'none');
     $('section.side_faves').css('display', 'none');
@@ -222,15 +242,33 @@ $(document).ready(function() {
     });
 
     //Handle new user registration event, call API to add user
-    $('#new_user').submit(function(event) {
+    $('#new_user').click(function(event) {
         event.preventDefault();
-        var username = $('input#new_username').val();
-        var password = $('input#new_password').val();
-        if (!username && password) {
-            $('p.error').text("Must enter a username/password for a new user signup.");
+        $('section.newuser_transparency').css('display', 'block');
+
+        //turn off the other pages
+        $('section.login_transparency').css('display', 'none');
+        $('section.container').css('display', 'none');
+        $('section.side_search').css('display', 'none');
+        $('section.side_faves').css('display', 'none');
+
+    });
+
+    //Handle new user registration event, call API to add user
+    $('#register').submit(function(event) {
+      //turn on the registration page
+      $('section.newuser_transparency').css('display', 'block');
+
+        event.preventDefault();
+        let new_username = $('input#new_username').val();
+        let new_email = $('input#new_email').val();
+        let new_password = $('input#new_password').val();
+        if (!new_username && new_password && new_email) {
+            $('p.register_error').text("Must enter a username/password/email for a new user signup.");
         } else {
-            newUser(username, password);
+            newUser(new_username, new_password, new_email);
         }
+
     });
 
     //Recipe/food search, search API from form
@@ -346,8 +384,22 @@ $(document).ready(function() {
 });
 
 $(document).on("click", '.portlet-toggle', function() {
-  console.log('clicked toggler');
     var icon = $(this);
     icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
     icon.closest(".portlet").find(".portlet-content").toggle();
+});
+
+$(document).on("click", '.fa-trash', function(event, ui) {
+  console.log('delete');
+
+  // //Grab the element the portlet is coming FROM
+  db_obj.uid = user_data_obj._id;
+  db_obj.fromElement = event.target.parentElement.parentElement.attributes[1].nodeValue;
+  db_obj.foodID = event.target.parentElement.id;
+
+  removeMenu(db_obj);
+
+  //Clicking the delete also removes it from the DOM
+  $(this).parent().remove();
+
 });

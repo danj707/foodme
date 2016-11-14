@@ -13,6 +13,7 @@
 
 <body>
 
+    <!-- Login start -->
     <section class="login_transparency">
         <h1>Welcome to Food Me!</h1>
         <img src="images/favicon.ico">
@@ -28,23 +29,56 @@
             </p>
 
             <p>
-                <label id="username">Password:
+                <label id="password">Password:
                   <input type="password" name="password" id="password" placeholder="password" required></input>
               </label>
             </p>
             <p class="login_error"></p>
             <input type="submit" id="login" value="Login"></input>
         </form>
-        <p><a href="#" class="new_user"><i class="fa fa-cutlery" aria-hidden="true"></i>New User? - Click to Register</a></p>
+        <p><a href="#" id="new_user"><i class="fa fa-cutlery" aria-hidden="true"></i><span> </span> New User? - Click to Register</a></p>
     </section>
+    <!-- Login end -->
 
+    <!-- New user registration start -->
+    <section class="newuser_transparency">
+        <h1>Register for FoodMe!</h1>
+        <img src="images/favicon.ico">
+
+        <h3>Signup for FoodMe!</h3>
+        <p>Choose a new username, password and enter your email.</p>
+
+        <form id="register" action="register" class="register_form">
+            <p>
+                <label id="new_username">Username:
+                  <input type="text" name="new_username" id="new_username" placeholder="username" required></input>
+              </label>
+            </p>
+
+            <p>
+                <label id="new_email">Email:
+                  <input type="text" name="new_email" id="new_email" placeholder="me@foo.com" required></input>
+              </label>
+            </p>
+
+            <p>
+                <label id="new_password">Password:
+                  <input type="password" name="new_password" id="new_password" placeholder="password" required></input>
+              </label>
+            </p>
+            <p class="register_error"></p>
+            <input type="submit" id="Register" value="Register"></input>
+        </form>
+    </section>
+    <!-- New user registration end -->
 
     <!-- Outside container for page layout -->
     <section class="container">
         <header class="transparency">
             <h1 class="title">Food Me!</h1>
-            <p class="intro">Looking to plan your meals for a week? Search Yummly's recipes, drag and drop onto your weekly meal plan!</p>
+            <p class="intro"></p>
             <p class="menu_error"></p>
+            <p class="new_menu"></>
         </header>
     <!-- End layout container  -->
 
@@ -104,7 +138,7 @@
                 Saturday
             </div>
                 <div class="column" id="saturday">
-                    <!-- Friday data goes in here -->
+                    <!-- Saturday data goes in here -->
                 </div>
 
             <div class="header">
@@ -112,7 +146,7 @@
             </div>
 
             <div class="column" id="sunday">
-                <!-- Friday data goes in here -->
+                <!-- Sunday data goes in here -->
             </div>
         </section>
 
@@ -166,31 +200,15 @@
     <section class="side_faves">
         <p class="slide_faves"><a href="#" class="faves-slide">See My Faves <i class="fa fa-plus" aria-hidden="true"></i></a></p>
         <div id="panel_faves">
-            <div class="favelist">
-                Saved Faves!
-            </div>
 
             <!-- Faves Menu options Go in Here -->
             <section class="faves">
-                <h3>Favorite Recipes!</h3>
+                <h3>Your Saved Faves!</h3>
+                <p>Drag and drop items from the search or menu to save them here</p>
                 <section class="week_col">
-                    <div class="column">
+                    <div class="column" id="faves">
 
-                        <!-- Faves Result #1 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Chicken</div>
-                            <div class="portlet-content">2 pieces of chicken, 1 egg, beat 5 min, cook 450 for 10 minutes.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
-
-                        <!-- Faves Result #2 -->
-                        <div class="portlet">
-                            <div class="portlet-header">Ribs</div>
-                            <div class="portlet-content">1lb Beef Ribs, season, cook 1 hr.
-                                <img src="images\food_placeholder.png" height="75" width="100" alt="food placeholder" align="middle">
-                            </div>
-                        </div>
+                    <!-- Faves data goes in here -->
 
                     </div>
                 </section>

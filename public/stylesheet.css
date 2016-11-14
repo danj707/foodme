@@ -15,6 +15,23 @@
     -webkit-padding-end: 0px;
     font-family: 'Ubuntu', sans-serif;
 }
+
+a:hover {
+  font-size:24px;
+  color:white;
+}
+
+.truncate {
+  width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fa-trash:hover {
+  color:red;
+  font-size:20px;
+}
+
 html {
     background: rgba(0, 0, 0, 0) url("../images/background.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -43,7 +60,7 @@ form #foodsearch {
     padding: 5px;
 }
 
-form #login {
+form #login, #register {
     padding:10px;
 }
 
@@ -68,11 +85,26 @@ label {
   color:black;
   border-radius:1px;
 }
-.new_user {
+a.new_user {
   color:lightgreen;
 }
 
 .login_transparency {
+  vertical-align:middle;
+  text-align:center;
+  margin:auto;
+  width:30%;
+  background-image: url("images/transparent.jpg");
+  border-radius: 0.5rem;
+  padding-top: 2rem;
+  margin-bottom: 1rem;
+  margin-top:15%;
+  margin-left: auto;
+  margin-right: auto;
+  padding:1rem;
+}
+
+.newuser_transparency {
   vertical-align:middle;
   text-align:center;
   margin:auto;
@@ -117,6 +149,11 @@ label {
 .intro {
     color: white;
     font-size: 20px;
+}
+
+.new_menu {
+  color:lightblue;
+  font-size:20px;
 }
 
 .week_col, .mon_col, .tues_col, .wed_col, .thurs_col, .fri_col, .weekend_col {
@@ -166,10 +203,11 @@ label {
     text-align: center;
     position: fixed;
     width: 20%;
-    height: 60%;
+    height: 75%;
     top: 60;
     left: 0;
     border:1px solid black;
+    padding-bottom:15px;
 }
 
 #panel_faves {
@@ -178,9 +216,10 @@ label {
     text-align: center;
     position: fixed;
     width: 20%;
-    height: 60%;
+    height: 75%;
     top: 60;
     right: 0;
+    padding-bottom:15px;
     border:1px solid black;
 }
 
@@ -238,7 +277,17 @@ label {
     display: inline-block;
     overflow: auto;
     width: 100%;
-    height: 400px;
+    height: 78%;
+    background: darkgray;
+    margin: auto;
+    text-align: center;
+}
+
+.faves {
+    display: inline-block;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
     background: darkgray;
     margin: auto;
     text-align: center;
@@ -249,17 +298,11 @@ label {
     font-weight: bold;
 }
 
-.search_results {
-    width: 100%;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    display: inline-block;
-    overflow: scroll;
-}
 .highlight {
   background:yellow;
   font-weight:bold;
 }
+
 .portlet {
     text-align: center;
     margin: 0 1em 1em 0;
