@@ -34,7 +34,6 @@ process.on('SIGINT', function() { //When you use control in gitbash, this event 
 });
 
 function initApp() {
-
     //get and app stuff here
     //GET, displays a list of all the items in DB
     var schema = 'User';
@@ -131,73 +130,47 @@ function initApp() {
     app.post('/update', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        var uid = req.body.uid;
+        var _id = req.body.uid;
         var fromElement = req.body.fromElement;
         var toElement = req.body.toElement;
         var foodID = req.body.foodID;
         var name = req.body.name;
         var url = req.body.url;
         var rating = req.body.rating;
-        //console.log(uid, fromElement,toElement,foodID,name,url,rating);
 
-        //Execute the findByID, assign it to a promise if it succeeds
-        var promise = User.findById({_id:uid}).exec();
-
-        //After receiving the promise of a successful find, execute the following
-        promise.then(function(user) {
-          //Do add here
-            user.menu[toElement] = [{"foodID": foodID,
-                            "name": name,
-                            "url": url,
-                            "rating": rating
-                        }]
-
-            console.log(`Successfully added recipe ${name} TO ${toElement}`);
-          return user.save(); // returns a promise
-        })
-        //Do remove here
-        .then(function(user) {
-            return res.json(user);
-        })
-        //catch-all for errors
-        .catch(function(err){
-          // just need one of these
-          console.log('An error occurred:', err);
-        });
+        //console.log(_id, toElement, foodID, rating, url);
+        User.findByIdAndUpdate(
+            _id,
+            {$push: { [toElement]: {foodID: foodID,
+                            name: name,
+                              url: url,
+                              rating: rating
+                          }}},
+            {safe:true, upsert: true, new: true},
+            function(err, model) {
+                console.log(err, model);
+            }
+        );
     });
 
-    //Delete a menu item (actually just set it to null) in the DB
-    app.delete('/remove/:foodID', function(req, res) {
-        var uid = req.body.uid;
+
+
+    //Delete a menu item in the DB
+    app.delete('/remove', function(req, res) {
+        var _id = req.body.uid;
         var fromElement = req.body.fromElement;
         var foodID = req.body.foodID;
-        console.log(uid, fromElement, foodID);
+        console.log("deleting?");
 
-        //Execute the findByID, assign it to a promise if it succeeds
-        var promise = User.findById({_id:uid}).exec();
+        User.findByIdAndRemove(
+          _id,
+          {$pop: { [fromElement]: { foodID: foodID
+                            }}},
+            function(err, model) {
+                console.log(err, model);
+            }
+        );
 
-        //After receiving the promise of a successful find, execute the following
-        promise.then(function(user) {
-            console.log(user.menu[fromElement]);
-          //Do updating stuff here
-            user.menu[fromElement] = [{"foodID": '',
-            "name": '',
-            "url": '',
-            "rating": ''
-          }]
-
-            console.log(`Successfully removed recipe ${foodID} FROM ${fromElement}`);
-          return user.save(); // returns a promise
-        })
-        .then(function(user) {
-            console.log("Removal successful");
-                return res.json(user);
-        })
-        //catch-all for errors
-        .catch(function(err){
-          // just need one of these
-          console.log('An error occurred:', err);
-        });
     });
 
     /* Return a user's menu object for display on the main page, typically done once after login */

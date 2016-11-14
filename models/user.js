@@ -12,23 +12,14 @@ var UserSchema = new mongoose.Schema({
         required: true
     },
     email: String,
-    menu : {
-      monday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-      tuesday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-      wednesday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-      thursday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-      friday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-      saturday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-      sunday : [  {foodID: String, name: String, url: String, rating: Number}
-      ],
-  },
-  faves : Array,
+    monday : Array,
+    tuesday : Array,
+    wednesday : Array,
+    thursday : Array,
+    friday : Array,
+    saturday : Array,
+    sunday : Array,
+    faves : Array,
 });
 
 UserSchema.methods.validatePassword = function(password, callback) {

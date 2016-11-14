@@ -149,19 +149,19 @@ function mainPage(result) {
 
     /* For displaying the main menu page, use the result jsonp object obtained from logging in user (contains their saved menu data), then loop through it displaying the appropriate portlets in their respective locations
     */
-    for (var key in result.menu) {
-        for(var i=0;i<result.menu[key].length;i++) {
-          if(result.menu[key][i].foodID) {
+    for (var key in result) {
+        for(var i=0;i<result[key].length;i++) {
+          if(result[key][i].foodID) {
             $(`div.column#${key}`).append(
               "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
-                 result.menu[key][i].foodID +
+                 result[key][i].foodID +
                  "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
-                 result.menu[key][i].name +
+                 result[key][i].name +
                  "</div><div class='portlet-content'>" +
                  "<img src=" +
-                 result.menu[key][i].url +
+                 result[key][i].url +
                  "><p>" +
-                 genRating(result.menu[key][i].rating) +
+                 genRating(result[key][i].rating) +
                  "</p></div></div>");
           } else {
               console.log("Empty db entry, skip it");
