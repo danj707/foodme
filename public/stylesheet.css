@@ -16,11 +16,6 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
-a:hover {
-  font-size:24px;
-  color:white;
-}
-
 .fa-trash:hover {
   color:red;
   font-size:20px;
@@ -59,8 +54,8 @@ form #foodsearch {
     padding: 5px;
 }
 
-.label {
-    font-size:16px;
+label {
+  font-weight:bold;
 }
 
 form #login, #register {
@@ -68,13 +63,13 @@ form #login, #register {
 }
 
 input {
-  padding:2px;
-  margin:10px;
-  width:80%;
+  padding:1%;
+  margin:1%;
 }
 
-label {
-  font-weight: bold;
+#food_search {
+  margin:10px;
+  width:80%;
 }
 
 .login_error {
@@ -85,12 +80,18 @@ label {
 }
 .search_error {
   background:red;
-  font-size:20px;
+  font-size:16px;
   color:black;
   border-radius:2px;
+  font-weight:bold;
 }
-a:link .new_user {
-  color:white:
+a:active {
+  color:white;
+  font-size:20px;
+}
+
+a:hover {
+  color:blue;
   font-size:24px;
 }
 
@@ -175,23 +176,30 @@ a:link .new_user {
 }
 
 .header {
-    background: lightgray;
+    background: teal;
     color: black;
     font-weight: bold;
     font-size: 20px;
-    width: 170px;
+    width: 100%;
     text-align: center;
     text-decoration: underline;
+    padding:5%;
+    border:1px solid;
 }
 
 .yellow {
   color:#f4e842;
 }
 
+.external_link {
+  font-size:12px;
+}
+
 .column {
-    width: 175px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    width: 170px;
+    background:darkgrey;
+    padding-bottom: 10px;
+    padding-top: 10px;
     padding-left: 5px;
     padding-right: 5px;
     text-align: center;
@@ -223,16 +231,22 @@ a:link .new_user {
     padding-bottom:15px;
 }
 
+.drop {
+  padding-bottom:5%;
+  padding-top:2%;
+  font-size:10px;
+}
+
 #panel_faves {
     display: none;
-    background: darkgray;
+    background: darkgrey;
     text-align: center;
     position: fixed;
     width: 20%;
     height: 75%;
     top: 60;
     right: 0;
-    padding:15px;
+    padding-top:1%;
     border:1px solid black;
 }
 
@@ -262,7 +276,12 @@ a:link .new_user {
     background: skyblue;
     height: 60px;
     border: 2px solid black;
-    font-size: 24px;
+    font-size: 22px;
+}
+
+#clear, #submit {
+  padding:1%;
+  margin:1%;
 }
 
 .sidesearch {
@@ -277,7 +296,7 @@ a:link .new_user {
     background: skyblue;
     height: 60px;
     border: 2px solid black;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .results_col {
@@ -294,12 +313,14 @@ a:link .new_user {
 
 .results {
     display: inline-block;
-    overflow: auto;
+    overflow-y: auto;
     width: 100%;
     height: 78%;
     background: darkgray;
     margin: auto;
     text-align: center;
+    padding-left:5%;
+    padding-right:5%;
 }
 
 .options {
@@ -308,7 +329,7 @@ a:link .new_user {
 
 .faves {
     display: inline-block;
-    overflow: auto;
+    overflow-y: auto;
     width: 100%;
     height: 100%;
     background: darkgray;
@@ -319,8 +340,8 @@ a:link .new_user {
 .search_headers {
     font-size: 20px;
     font-weight: bold;
-    padding-top:10px;
-    padding-bottom:10px;
+    padding-top:1%;
+    padding-bottom:1%;
 }
 
 .highlight {
@@ -330,14 +351,18 @@ a:link .new_user {
 
 .portlet {
     text-align: center;
-    margin: 0 1em 1em 0;
     padding: 0.3em;
+    background:#9fc4c9;
+    border:1px solid;
+    border-radius:1px;
+    margin-top:5%;
 }
 
 .portlet-header {
     padding: 0.2em 0.3em;
     margin-bottom: 0.5em;
     position: relative;
+    background: #319e78;
 }
 
 .portlet-toggle {

@@ -87,6 +87,8 @@
                 Monday
             </div>
             <div class="column" id="monday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+
                 <!-- Monday data goes in here -->
             </div>
         </section>
@@ -97,6 +99,7 @@
                 Tuesday
             </div>
             <div class="column" id="tuesday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                 <!-- Tuesday data goes in here -->
             </div>
         </section>
@@ -107,6 +110,7 @@
                 Wednesday
             </div>
             <div class="column" id="wednesday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                 <!-- Wednesday data goes in here -->
             </div>
         </section>
@@ -117,6 +121,7 @@
                 Thursday
             </div>
             <div class="column" id="thursday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                 <!-- Thursday data goes in here -->
             </div>
         </section>
@@ -127,6 +132,7 @@
                 Friday
             </div>
             <div class="column" id="friday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                 <!-- Friday data goes in here -->
             </div>
         </section>
@@ -137,6 +143,7 @@
                 Saturday
             </div>
                 <div class="column" id="saturday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                     <!-- Saturday data goes in here -->
                 </div>
 
@@ -145,6 +152,7 @@
             </div>
 
             <div class="column" id="sunday">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                 <!-- Sunday data goes in here -->
             </div>
         </section>
@@ -163,26 +171,30 @@
             <div class="sidesearch">
                 <form id="foodsearch" action="search" method="get">
                     <p class="search_headers">Search for Recipes:</p>
-                    <select name="recipe_search" id="recipe_search">
-                      <option selected="true" disabled="true">Choose food type</option>
-                      <option class="options" id="1" name="beef" value="beef">Beef</option>
-                      <option id="2" name="breakfast" value="beef">Breakfast</option>
-                      <option id="3" name="chicken" value="chicken">Chicken</option>
-                      <option id="4" name="dessert" value="dessert">Desserts</option>
-                      <option id="5" name="freezer" value="freezer">Freezer Meals</option>
-                      <option id="6" name="italian" value="italian">Italian</option>
-                      <option id="7" name="kid" value="kids">Kid Friendly</option>
-                      <option id="8" name="mexican" value="mexican">Mexican</option>
-                      <option id="9" name="turkey" value="turkey">Turkey</option>
-                      <option id="10" name="veggie" value="vegetarian">Vegetarian</option>
-                    </select>
+                    <label id="search">
+                        <select name="recipe_search" id="recipe_search">
+                          <option selected="true" disabled="true">Choose recipe type:</option>
+                          <option class="options" id="1" name="beef" value="beef">Beef</option>
+                          <option id="2" name="breakfast" value="beef">Breakfast</option>
+                          <option id="3" name="chicken" value="chicken">Chicken</option>
+                          <option id="4" name="dessert" value="dessert">Desserts</option>
+                          <option id="5" name="freezer" value="freezer">Freezer Meals</option>
+                          <option id="6" name="gluten%20free" value="gluten%20free">Gluten Free</option>
+                          <option id="7" name="italian" value="italian">Italian</option>
+                          <option id="8" name="kid" value="kids">Kid Friendly</option>
+                          <option id="9" name="mexican" value="mexican">Mexican</option>
+                          <option id="10" name="turkey" value="turkey">Turkey</option>
+                          <option id="11" name="veggie" value="vegetarian">Vegetarian</option>
+                        </select>
+                    </label>
                     <p class="search_headers">-OR-</p>
 
-                    <p class="search_headers">Search for food by type:</p>
-                    <input type="text" id="food_search" name="food_search">
-
-                    <p><button type="reset" value="clear">Clear</button>
-                    <p><input type="submit" name="submit" value="Search"></p>
+                    <label id="food_search">
+                        <p class="search_headers">Search for food by type:</p>
+                        <input type="text" id="food_search" name="food_search">
+                    </label>
+                    <p><button type="reset" value="clear" id="clear">Clear</button>
+                    <p><input type="submit" name="submit" value="Search" id="submit"></p>
                     <p class="search_error"></p>
                 </form>
                 <hr>
@@ -207,10 +219,10 @@
 
             <!-- Faves Menu options Go in Here -->
             <section class="faves">
-                <h3>Your Saved Faves!</h3>
-                <p>Drag and drop items from the search or menu to save them here</p>
+                <i class="fa fa-cutlery" id="faves" aria-hidden="true"><span>  </span></i> <h3>Your Saved Faves!</h3>
                 <section class="week_col">
                     <div class="column" id="faves">
+                <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                     <!-- Faves data goes in here -->
 
                     </div>

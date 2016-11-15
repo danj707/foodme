@@ -85,12 +85,9 @@ function initApp() {
 
     //--Creates new user in DB from login/signup main page
     app.post('/users/create', function(req, res) {
-                console.log(req.body);
         var new_username = req.body.new_username;
         var new_password = req.body.new_password;
         var new_email = req.body.new_email;
-
-        console.log("Request to create: " + new_username, new_password, new_email);
 
         bcrypt.genSalt(10, function(err, salt) {
             if (err) {
