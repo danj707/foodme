@@ -70,6 +70,7 @@ form #login, #register {
 input {
   padding:2px;
   margin:10px;
+  width:80%;
 }
 
 label {
@@ -106,6 +107,13 @@ a:link .new_user {
   margin-left: auto;
   margin-right: auto;
   padding:1rem;
+}
+
+.top_header {
+  width:60%;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:3%;
 }
 
 .newuser_transparency {
@@ -199,6 +207,7 @@ a:link .new_user {
     border-radius: 2px;
     border: 1px solid black;
     cursor:pointer;
+    z-index:1000;
 }
 
 #panel {

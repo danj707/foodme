@@ -47,9 +47,9 @@ function db_obj () {
   this.rating = ''
 }
 
-
 // db_obj.prototype = {
 //   updateObject:function () {
+
 //   }
 // }
 
