@@ -34,11 +34,12 @@ process.on('SIGINT', function() { //When you use control in gitbash, this event 
 });
 
 function initApp() {
-    //get and app stuff here
-    //GET, displays a list of all the items in DB
+    // get and app stuff here
+    // GET, displays a list of all the items in DB
+
     var schema = 'User';
 
-    //Show list of all users in DB
+    // Show list of all users in DB
     app.get('/user', function(req, res) {
         User.find(function(err, items) {
             if (err) {
@@ -51,7 +52,7 @@ function initApp() {
         });
     });
 
-    //--Login of single user from login page, protected by bcrypt and hashed PWD's
+    // --Login of single user from login page, protected by bcrypt and hashed PWD's
     app.post('/login', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -83,7 +84,7 @@ function initApp() {
         });
     });
 
-    //--Creates new user in DB from login/signup main page
+    // --Creates new user in DB from login/signup main page
     app.post('/users/create', function(req, res) {
         var new_username = req.body.new_username;
         var new_password = req.body.new_password;
@@ -147,7 +148,9 @@ function initApp() {
 }
 
 
-    /* Adds and removes menu data from DB.  Remove called on portlet pickup, add called on drop */
+    /*
+    Adds and removes menu data from DB.  Remove called on portlet pickup, add called on drop
+    */
 
     app.post('/update', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -180,7 +183,7 @@ function initApp() {
         );
     });
 
-    //Delete a menu item in the DB
+    // Delete a menu item in the DB
     app.delete('/remove', function(req, res) {
         var _id = req.body.uid;
         var fromElement = req.body.fromElement;
@@ -202,7 +205,9 @@ function initApp() {
         );
     });
 
-    /* Return a user's menu object for display on the main page, typically done once after login */
+    /*
+    Return a user's menu object for display on the main page, typically done once after login
+    */
     app.get('/menu', function(req, res) {
         var _id = req.params._id;
         User.findOne({
@@ -218,7 +223,7 @@ function initApp() {
         });
     });
 
-    //REMOVES Team by ID from DB
+    // Removes User by ID from DB
     app.delete('/users/:id', function(req,res) {
        User.remove({
            _id: req.params.id

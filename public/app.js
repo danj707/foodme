@@ -2,7 +2,7 @@
 TODO - Improvements and Fixes
 
 Major:
--Additional Jquery UI improvements (border when dragging, drag-entry box, etc)
+-None
 
 Next Version:
 -Dragging from the Faves menu shouldn't remove it, only the trashcan should
@@ -22,19 +22,17 @@ Deployment:
 -README
 -Screenshots
 
-DEBUG
--Why does the updateObject method call the ajax repeatedly?
 */
 
 'use strict';
 /* global $ */
 
-//Define some globals
+// Define some globals
 let user_data_obj = '';
 const app_key = '4cc7572d414ad3533abecb16976baa15';
 const app_id = 'ada49da9';
 
-//Data object constructor, holds items passed to DB on portlet pick up/drop
+// Data object constructor, holds items passed to DB on portlet pick up/drop
 function db_obj () {
   this.uid = '',
   this.foodID = '',
@@ -42,17 +40,18 @@ function db_obj () {
   this.toElement = ''
   this.name = '',
   this.url = '',
-  this.rating = ''
+  this.rating = '',
+  this.link = ''
 }
 
-//construct a new obj
+// construct a new obj
   var db_obj = new db_obj();
 
 //---------------------------------------------
 
 //FUNCTION DEFINITIONS
 
-//--Rating star function, build up a star for each rating increment, return the appropriate html
+// --Rating star function, build up a star for each rating increment, return the appropriate html
 function genRating (rating) {
    let html = `Rating: <b id='rating' value=${rating} <span>`;
    for(var i=1;i<=rating;i++) {
@@ -74,7 +73,7 @@ function dispSearch (result, index, array) {
 
    let link = `http://www.yummly.com/recipes?q=`;
    let encoded_name = encodeURIComponent(recipe_name);
-
+   link += encoded_name;
    let img = result.imageUrlsBySize[90];
 
    $('div.column_results').append(
@@ -87,10 +86,10 @@ function dispSearch (result, index, array) {
          img +
          "><p>" +
          genRating(rating) +
-         `</p></div><div><a href="${link}${encoded_name}" target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true'></div>`);
+         `</p></div><div><a href="${link}" target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true' id="search"></i></div>`);
 }
 
-//--LoginUser API call to log user into site
+// --LoginUser API call to log user into site
 function loginUser(username, password) {
     $('p.error').empty();
     let q_string = {
@@ -98,17 +97,17 @@ function loginUser(username, password) {
         'password': password
     };
     $.ajax({type: "POST", url: "/login", data: q_string, dataType: 'json'})
-    .done(function(result) { //this waits for the ajax to return with a succesful promise object
-        //set the global user data obj as the result object from logging in, contains all the info we need
+    .done(function(result) {
         user_data_obj = result;
         mainPage(result);
     }).fail(function(jqXHR, error) {
+
         //User login was unsuccessful, due to pw/username combination was wrong
         $('p.login_error').text("We're sorry, that un/pw combination was incorrect.");
     });
 }
 
-//--newUser API to create a new user from login/signup main page
+// --newUser API to create a new user from login/signup main page
 function newUser(new_username, new_password, new_email) {
     $('p.error').empty();
     var q_string = {
@@ -128,20 +127,16 @@ function newUser(new_username, new_password, new_email) {
         } else {
             $('p.newuser_error').text("Sorry, that username exists already, try another username");
         }
-    }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
+    }).fail(function(jqXHR, error) {
         $('p.register_error').text("We're sorry, there was a system error, try again.");
     });
 }
 
-//-- searchAPI to search the Yummly API, return the recipe/food data jsonp object
+// --searchAPI to search the Yummly API, return the recipe/food data jsonp object
 function searchAPI(recipe_search, food_search) {
-    //clear the error field
     $('p.search_error').empty();
-
     let search_params = 'default';
 
-    /*PLACEHOLDER FOR NOW, API should be smart enough to know if we're doing a recipe search or
-    a food search */
     if(recipe_search) {
       //use the recipe search
       search_params = recipe_search;
@@ -156,26 +151,27 @@ function searchAPI(recipe_search, food_search) {
         dataType: 'jsonp'
     }).done(function(result) {
         result.matches.forEach(dispSearch);
-    }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
+    }).fail(function(jqXHR, error) {
         $('p.newuser_error').text("We're sorry, there was a system error, try again.");
     });
 }
 
-//--Displays the main layout page, searches the DB by ID, loads menu data and displays page
+// --Displays the main layout page, searches the DB by ID, loads menu data and displays page
 function mainPage(result) {
     $('p.intro').text(`Welcome ${result.username}!  Pulldown the search on the left to search Yummly's recipes, drag and drop them to your menu, or save to your Faves!`);
 
-    //hide the login and new user pages
+    // hide the login and new user pages
     $('section.login_transparency').css('display', 'none');
     $('section.newuser_transparency').css('display','none');
 
-    //show the main page
+    // show the main page
     $('section.container').css('display', 'block');
     $('section.side_search').css('display', 'block');
     $('section.side_faves').css('display', 'block');
 
     /* For displaying the main menu page, use the result jsonp object obtained from logging in user (contains their saved menu data), then loop through it displaying the appropriate portlets in their respective locations
     */
+
     for (var key in result) {
         for(var i=0;i<result[key].length;i++) {
             $(`div.column#${key}`).append(
@@ -183,16 +179,16 @@ function mainPage(result) {
                  result[key][i].foodID +
                  "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
                  result[key][i].name +
-                 "</div><div class='portlet-content'>" +
+                 `</div><div class='portlet-content' id=${key}>` +
                  "<img src=" +
                  result[key][i].url +
                  "><p>" +
                  genRating(result[key][i].rating) +
-                 `</p></div><div><a href=${result[key][i].link} target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true'></div>`);
+                 `</p></div><div><a href=${result[key][i].link} target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true' id=${key}></i></div>`);
         }
     }
 
-    //Also have to prefill the 'faves' menu in case the user has some saved.  No need to wait until expanded.
+    // Also have to prefill the 'faves' menu in case the user has some saved.  No need to wait until expanded.
 
         for(var i=0;i<result.faves.length;i++) {
             $('div.column_faves').append(
@@ -205,11 +201,11 @@ function mainPage(result) {
                  result.faves[i].url +
                  "><p>" +
                  genRating(result.faves[i].rating) +
-                 `</p></div><div><a href=${result.faves[i].link} target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true'></div>`);
+                 `</p></div><div><a href=${result.faves[i].link} target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true' id="faves"></i></div>`);
        }
 }
 
-//Add a menu item to the DB
+// Add a menu item to the DB
 function updateMenu (db_obj) {
       var q_string = db_obj;
       $.ajax({
@@ -224,7 +220,7 @@ function updateMenu (db_obj) {
       });
 }
 
-//Remove a menu item from the DB
+// Remove a menu item from the DB
 function removeMenu (db_obj) {
       var q_string = `uid=${db_obj.uid}&foodID=${db_obj.foodID}&fromElement=${db_obj.fromElement}`;
       $.ajax({
@@ -234,23 +230,24 @@ function removeMenu (db_obj) {
          dataType: 'json'
       }).done(function(result) {
         //console.log("Remove Successful");
-      }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
+      }).fail(function(jqXHR, error) {
           $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
       });
 }
 
-//Document Section
+// --Document Section--
 $(document).ready(function() {
-    //display the login block
+
+    // display the login block
     $('section.login_transparency').css('display', 'block');
 
-    //hide the search and display blocks until logged in
+    // hide the search and display blocks until logged in
     $('section.newuser_transparency').css('display','none');
     $('section.container').css('display', 'none');
     $('section.side_search').css('display', 'none');
     $('section.side_faves').css('display', 'none');
 
-    //Handle login event, call API to login user
+    // Handle login event, call API to login user
     $('#login').submit(function(event) {
         event.preventDefault();
         var username = $('input#username').val();
@@ -258,12 +255,12 @@ $(document).ready(function() {
         loginUser(username, password);
     });
 
-    //Handle new user registration event, call API to add user
+    // Handle new user registration event, call API to add user
     $('#new_user').click(function(event) {
         event.preventDefault();
         $('section.newuser_transparency').css('display', 'block');
 
-        //turn off the other pages
+        // turn off the other pages
         $('section.login_transparency').css('display', 'none');
         $('section.container').css('display', 'none');
         $('section.side_search').css('display', 'none');
@@ -271,9 +268,9 @@ $(document).ready(function() {
 
     });
 
-    //Handle new user registration event, call API to add user
+    // Handle new user registration event, call API to add user
     $('#register').submit(function(event) {
-      //turn on the registration page
+      // turn on the registration page
       $('section.newuser_transparency').css('display', 'block');
 
         event.preventDefault();
@@ -288,7 +285,7 @@ $(document).ready(function() {
 
     });
 
-    //Recipe/food search, search API from form
+    // Recipe/food search, search API from form
     $('#foodsearch').submit(function(event) {
         event.preventDefault();
         var recipe_search = $('select#recipe_search').val();
@@ -300,18 +297,17 @@ $(document).ready(function() {
             $('div.column_results').empty();
             searchAPI(recipe_search, food_search);
         } else {
-           //didn't select anything!
             $('p.search_error').text("Please choose from either recipes OR food type.");
         }
     });
 
-    //Main Menu Column Data
+    // Main Menu Column Data
    $(".column").sortable({
       connectWith: ".column, .column_results, .column_faves",
       start: function (event, ui) {
             ui.item.toggleClass("highlight");
 
-            //Grab the element the portlet is coming FROM
+            // Grab the element the portlet is coming FROM
             db_obj.uid = user_data_obj._id;
             db_obj.fromElement = ui.item["0"].parentElement.id;
             db_obj.foodID = ui.item[0].id;
@@ -321,20 +317,26 @@ $(document).ready(function() {
       stop: function (event, ui) {
             ui.item.toggleClass("highlight");
 
-            //Grab the element the portlet is going TO
+            // Grab the element the portlet is going TO
             var toElement = ui.item["0"].parentElement.id;
             db_obj.toElement = toElement;
 
-            /* Get the recipe name, image url and rating from the jquery ui data obj
+            /*
+            Get the recipe name, image url and rating from the jquery ui data obj
             wish there was a better way - Too tied into the structure of the html, change one
             thing and this will all break.  Boo.
             */
 
+
             db_obj.name = ui.item["0"].children["0"].innerText;
             db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
+            db_obj.link = ui.item["0"].children[2].children["0"].href;
 
-            //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+            // Update the <i> attr to the day to remove from if delete clicked
+            $("i.fa-trash").attr({"id":`${toElement}`});
+
+            // Database DEL/UPDATE hook - call the generic API here, pass in update data obj
             updateMenu(db_obj);
 
       },
@@ -343,16 +345,16 @@ $(document).ready(function() {
       placeholder: "portlet-placeholder ui-corner-all",
       opacity: 0.7,
    })
-      //remove the ability to copy/paste content from the portlets
+      // Disable the ability to copy/paste content from the portlets
       .disableSelection();
 
-      //Search Result column data
+      // Search Result column data
     $(".column_results").sortable({
     connectWith: ".column, .column_results, .column_faves",
     start: function (event, ui) {
             ui.item.toggleClass("highlight");
 
-            //Grab the element the portlet is coming FROM
+            // Grab the element the portlet is coming FROM
             db_obj.uid = user_data_obj._id;
             db_obj.fromElement = ui.item["0"].parentElement.id;
             db_obj.foodID = ui.item[0].id;
@@ -365,7 +367,8 @@ $(document).ready(function() {
             var toElement = ui.item["0"].parentElement.id;
             db_obj.toElement = toElement;
 
-            /* Get the recipe name, image url and rating from the jquery ui data obj
+            /*
+            Get the recipe name, image url and rating from the jquery ui data obj
             wish there was a better way - Too tied into the structure of the html, change one
             thing and this will all break.  Boo.
             */
@@ -373,6 +376,10 @@ $(document).ready(function() {
             db_obj.name = ui.item["0"].children["0"].innerText;
             db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
+            db_obj.link = ui.item["0"].children[2].children["0"].href;
+
+            // Update the <i> attr to the day to remove from if delete clicked
+            $("i.fa-trash").attr({"id":`${toElement}`});
 
             updateMenu(db_obj);
 
@@ -381,7 +388,7 @@ $(document).ready(function() {
     cancel: ".portlet-toggle",
     placeholder: "portlet-placeholder ui-corner-all"
   })
-        //remove the ability to copy/paste content from the portlets
+        // remove the ability to copy/paste content from the portlets
         .disableSelection();
 
     $(".column_faves").sortable({
@@ -389,7 +396,7 @@ $(document).ready(function() {
         start: function (event, ui) {
               ui.item.toggleClass("highlight");
 
-              //Grab the element the portlet is coming FROM
+              // Grab the element the portlet is coming FROM
               db_obj.uid = user_data_obj._id;
               db_obj.fromElement = ui.item["0"].parentElement.id;
               db_obj.foodID = ui.item[0].id;
@@ -403,15 +410,18 @@ $(document).ready(function() {
               var toElement = ui.item["0"].parentElement.id;
               db_obj.toElement = toElement;
 
-              /* Get the recipe name, image url and rating from the jquery ui data obj
+              /*
+              Get the recipe name, image url and rating from the jquery ui data obj
               wish there was a better way - Too tied into the structure of the html, change one
               thing and this will all break.  Boo.
               */
+
               db_obj.name = ui.item["0"].children["0"].innerText;
               db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
               db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
+              db_obj.link = ui.item["0"].children[2].children["0"].href;
 
-              //Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+              // Database DEL/UPDATE hook - call the generic API here, pass in update data obj
               updateMenu(db_obj);
 
         },
@@ -420,7 +430,7 @@ $(document).ready(function() {
         placeholder: "portlet-placeholder ui-corner-all",
         opacity: 0.7,
         })
-        //remove the ability to copy/paste content from the portlets
+        // remove the ability to copy/paste content from the portlets
         .disableSelection();
 
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all").find(".portlet-header").addClass("ui-widget-header ui-corner-all").prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
@@ -442,34 +452,34 @@ $(document).on("click", '.portlet-toggle', function() {
 });
 
 $(document).on("click", '.fa-trash', function(evt) {
-  //Grab the element the portlet is coming FROM
+  // Grab the element the portlet is coming FROM
   db_obj.uid = user_data_obj._id;
 
-  console.log(evt);
-  /*Handle where the original target of the delete (trash can clickie) is coming from:
+    /*
+    Handle where the original target of the delete (trash can icon) is coming from:
     -If it's from the search results, just remove the item from the document
-    -If it's in the menu, we need to actually remove it from the DOM AND the Database
-  */
+    -If it's in the menu or the faves, we need to actually remove it from the DOM AND the Database
+    */
 
-    //works for BOTH chrome and firefox
     db_obj.uid = user_data_obj._id;
 
-    /*crazy ternary checking to see if the search results has a certain element in the event (evt)
-    object, and if it's undefined, then use the secondary source
-    Had to do this since the search results has a different event object heirarchy than the menu event object. Oh, and Firefox and Chrome apparently work differently in use of the event vs evt object.
+    /*
+    Checking to see if the search results has a certain element in the event (evt)
+    object
     */
 
-    db_obj.fromElement = (evt.originalEvent.target.parentElement.parentElement.attributes[1].nodeValue === 'undefined') ? evt.originalEvent.target.parentElement.parentElement.attributes[0].nodeValue : evt.originalEvent.target.parentElement.parentElement.attributes[0].nodeValue;
+    if (evt.originalEvent.target.id){
+      if(evt.originalEvent.target.id === 'search') {
+          $(this).parent().parent().remove();
+      }
 
-    //Get the foodID from the evt object for both Chrome and Safari
-    db_obj.foodID = evt.originalEvent.target.parentElement.parentElement.attributes[1].nodeValue;
+      db_obj.foodID = evt.originalEvent.target.parentElement.parentElement.id;
+      db_obj.fromElement = evt.originalEvent.target.id;
 
-    //remove the item from the DOM
-    $(this).parent().parent().remove();
+      removeMenu(db_obj);
+      $(this).parent().parent().remove();
+    }
 
-    /*call to the DB, passing the constructor object to do an actual removal, if its removing from the search, doesn't really do anything
-    */
 
-    removeMenu(db_obj);
 
 });
