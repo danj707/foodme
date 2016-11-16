@@ -11,7 +11,6 @@ Next Version:
 -Text wrapping of headers; currently running into the fa-minus
 
 All:
--Code cleanup & commenting
 -API documentation
 -Description/instruction text
 -Mobile responsiveness Checks

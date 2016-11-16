@@ -24,8 +24,7 @@ var options = {
     }
 };
 
-//mongoose.connect('mongodb://localhost/foodme', options);
-
+// Connect to the database
 mongoose.connect(config.DATABASE_URL, options);
 
 mongoose.connection.on('connected', function(ref) {
@@ -39,13 +38,12 @@ process.on('SIGINT', function() { //When you use control in gitbash, this event 
     });
 });
 
+// On mongoose connection and DB start, initApp
 function initApp() {
-    // get and app stuff here
-    // GET, displays a list of all the items in DB
 
     var schema = 'User';
 
-    // Show list of all users in DB
+    // API - List all users in the DB at /user
     app.get('/user', function(req, res) {
         User.find(function(err, items) {
             if (err) {
@@ -58,7 +56,10 @@ function initApp() {
         });
     });
 
-    // --Login of single user from login page, protected by bcrypt and hashed PWD's
+    /*
+    --Login of single user from login page, protected by bcrypt and hashed PWD's
+    API - /login
+    */
     app.post('/login', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -90,7 +91,10 @@ function initApp() {
         });
     });
 
-    // --Creates new user in DB from login/signup main page
+    /*
+    -- Create new user from signup page, hashes the PW
+    API - /users/create
+    */
     app.post('/users/create', function(req, res) {
         var new_username = req.body.new_username;
         var new_password = req.body.new_password;
@@ -124,40 +128,10 @@ function initApp() {
         });
     });
 
-    function sendEmail (new_username, new_email) {
-        var nodemailer = require('nodemailer');
-        // create reusable transporter object using the default SMTP transport
-        var transporter = nodemailer.createTransport({
-             service: 'Mailgun', // no need to set host or port etc.
-             auth: {
-                 user: 'postmaster@sandbox6c86cc7ec15f47c480d0c362483dff1a.mailgun.org',
-                 pass: 'b57aaa3b2e89f81a5287973225e2884b'
-             }
-        });
-
-        // setup e-mail data with unicode symbols
-        var mailOptions = {
-            from: '"FoodMe ?" <danjenner@gmail.com>', // sender address
-            to: 'danjenner@gmail.com', // list of receivers
-            subject: 'Welcome to FoodMe!', // Subject line
-            text: 'Hello world ?', // plaintext body
-            html: `<b>Welcome ${new_username}</b>` // html body
-        };
-
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, function(error, info){
-            if(error){
-                return console.log(error);
-            }
-            console.log('Message sent: ' + info.response);
-        });
-}
-
-
     /*
-    Adds and removes menu data from DB.  Remove called on portlet pickup, add called on drop
+    Adds menu data to DB.  Remove called on portlet pickup, add called on drop
+    API - /update
     */
-
     app.post('/update', function(req, res) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -189,7 +163,10 @@ function initApp() {
         );
     });
 
-    // Delete a menu item in the DB
+    /*
+    Removes menu data from DB.  Remove called on portlet pickup, add called on drop
+    API - /remove
+    */
     app.delete('/remove', function(req, res) {
         var _id = req.body.uid;
         var fromElement = req.body.fromElement;
@@ -213,6 +190,7 @@ function initApp() {
 
     /*
     Return a user's menu object for display on the main page, typically done once after login
+    API - /menu
     */
     app.get('/menu', function(req, res) {
         var _id = req.params._id;
@@ -229,7 +207,10 @@ function initApp() {
         });
     });
 
-    // Removes User by ID from DB
+    /*
+    Deletes a user from the DB by _id
+    API - /users/:id
+    */
     app.delete('/users/:id', function(req,res) {
        User.remove({
            _id: req.params.id
@@ -242,6 +223,38 @@ function initApp() {
             res.status(201).json(item);
        });
     });
+
+    /*
+    -- sendEmail to new users on signup (actually only send to me now - due to Mailgun's requiring all email addresses to be pre-verified for spam purposes)
+    */
+    function sendEmail (new_username, new_email) {
+        var nodemailer = require('nodemailer');
+        // create reusable transporter object using the default SMTP transport
+        var transporter = nodemailer.createTransport({
+             service: 'Mailgun', // no need to set host or port etc.
+             auth: {
+                 user: 'postmaster@sandbox6c86cc7ec15f47c480d0c362483dff1a.mailgun.org',
+                 pass: 'b57aaa3b2e89f81a5287973225e2884b'
+             }
+        });
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"FoodMe ?" <danjenner@gmail.com>', // sender address
+            to: 'danjenner@gmail.com', // list of receivers
+            subject: 'Welcome to FoodMe!', // Subject line
+            text: 'Welcome to FoodMe!', // plaintext body
+            html: `<b>Welcome ${new_username}</b>` // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+        });
+}
 
     server.listen(3000, function() {
         console.log('Server started, listening on *:3000');
