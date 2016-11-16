@@ -11,6 +11,8 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+var config = require('./config');
+
 var server = http.Server(app);
 var User = require('./models/user');
 
@@ -21,7 +23,11 @@ var options = {
         }
     }
 };
-mongoose.connect('mongodb://localhost/foodme', options); // foodme is the database.
+
+//mongoose.connect('mongodb://localhost/foodme', options);
+
+mongoose.connect(config.DATABASE_URL, options);
+
 mongoose.connection.on('connected', function(ref) {
     initApp();
 }); //when connected we try to apply express application
