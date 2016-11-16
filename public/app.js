@@ -2,7 +2,9 @@
 TODO - Improvements and Fixes
 
 Major:
--None
+-DB item not deleting on first trashcan click.  Have to relog-in, then trash works.  Something to do with dom location, events, etc
+
+-Undefined link out to yummly when clicking on main menu page.  Data not getting added to db.
 
 Next Version:
 -Dragging from the Faves menu shouldn't remove it, only the trashcan should
@@ -214,6 +216,7 @@ function updateMenu (db_obj) {
          dataType: 'json'
       }).done(function(result) {
           //console.log("Update Successful");
+          $('p.menu_success').text("Menu item added!");
       }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
           $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
       });
@@ -221,14 +224,16 @@ function updateMenu (db_obj) {
 
 // Remove a menu item from the DB
 function removeMenu (db_obj) {
-      var q_string = `uid=${db_obj.uid}&foodID=${db_obj.foodID}&fromElement=${db_obj.fromElement}`;
+//      var q_string = `uid=${db_obj.uid}&foodID=${db_obj.foodID}&fromElement=${db_obj.fromElement}`;
+      var q_string = db_obj;
+
       $.ajax({
          type: "DELETE",
          url: `/remove`,
          data: q_string,
          dataType: 'json'
       }).done(function(result) {
-        //console.log("Remove Successful");
+          $('p.menu_success').text("Menu item removed!");
       }).fail(function(jqXHR, error) {
           $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
       });

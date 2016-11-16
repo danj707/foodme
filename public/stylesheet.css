@@ -173,6 +173,16 @@ input {
   font-size: 20px;
 }
 
+.menu_error {
+  background:red;
+  border-radius:1px;
+}
+
+.menu_success {
+  background:green;
+  border-radius:1px;
+}
+
 .week_col, .mon_col, .tues_col, .wed_col, .thurs_col, .fri_col, .weekend_col {
   display: inline-block;
   vertical-align: top;
