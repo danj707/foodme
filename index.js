@@ -258,8 +258,12 @@ function initApp() {
         });
 }
 
-    server.listen(3000, function() {
-        console.log('Server started, listening on *:3000');
-    });
+    // server.listen(3000, function() {
+    //     console.log('Server started, listening on *:3000');
+    // });
+
+    server.listen(process.env.PORT || 5000), function() {
+      console.log(`Server started, listening on ${process.env.PORT}`);
+    }
 
 }
