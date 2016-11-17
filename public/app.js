@@ -367,7 +367,6 @@ $(document).ready(function() {
 
             //Grab the element the portlet is going TO
             db_obj.toElement = ui.item["0"].parentElement.id;
-            console.log(db_obj.toElement);
 
             /*
             Get the recipe name, image url and rating from the jquery ui data obj
