@@ -27,9 +27,17 @@
 * Enter your own recipes!
 
 ## Screenshots
+
+Using the app - Drag and Drop Recipes
 ![App Animation](anim.gif)
+
+Home Page
 ![Application 1](app1.png)
+
+App Main Page
 ![Application 2](app2.png)
+
+Searches and Favorites
 ![Application 3](app3.png)
 ![Application 4](app4.png)
 
