@@ -142,13 +142,15 @@ function initApp() {
         var name = req.body.name;
         var url = req.body.url;
         var rating = req.body.rating;
+        var link = req.body.link;
 
         User.findByIdAndUpdate(
             _id,
             {$push: { [toElement]: {foodID: foodID,
                             name: name,
                               url: url,
-                              rating: rating
+                              rating: rating,
+                              link: link
                           }}},
             {safe:true, upsert: true, new: true},
             function(err, model) {

@@ -1,11 +1,6 @@
 /*
 TODO - Improvements and Fixes
 
-Major:
--DB item not deleting on first trashcan click.  Have to relog-in, then trash works.  Something to do with dom location, events, etc
-
--Undefined link out to yummly when clicking on main menu page.  Data not getting added to db.
-
 Next Version:
 -Dragging from the Faves menu shouldn't remove it, only the trashcan should
 -Sort the days either by sort in place (how they were drag and dropped, or alpha)
@@ -239,6 +234,11 @@ function removeMenu (db_obj) {
       });
 }
 
+function trashCan (db_obj) {
+  // Update the <i> attr to the day to remove from if delete clicked
+  $(`div.column#${db_obj.toElement}` ).find( "i.fa-trash" ).attr({"id":`${db_obj.toElement}`});
+}
+
 // --Document Section--
 $(document).ready(function() {
 
@@ -286,7 +286,6 @@ $(document).ready(function() {
         } else {
             newUser(new_username, new_password, new_email);
         }
-
     });
 
     // Recipe/food search, search API from form
@@ -331,16 +330,15 @@ $(document).ready(function() {
             thing and this will all break.  Boo.
             */
 
+            // update the trashcan link
+            trashCan(db_obj);
 
             db_obj.name = ui.item["0"].children["0"].innerText;
             db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
             db_obj.link = ui.item["0"].children[2].children["0"].href;
 
-            // Update the <i> attr to the day to remove from if delete clicked
-            $("i.fa-trash").attr({"id":`${toElement}`});
-
-            // Database DEL/UPDATE hook - call the generic API here, pass in update data obj
+            // update the DB
             updateMenu(db_obj);
 
       },
@@ -368,8 +366,8 @@ $(document).ready(function() {
             ui.item.toggleClass("highlight");
 
             //Grab the element the portlet is going TO
-            var toElement = ui.item["0"].parentElement.id;
-            db_obj.toElement = toElement;
+            db_obj.toElement = ui.item["0"].parentElement.id;
+            console.log(db_obj.toElement);
 
             /*
             Get the recipe name, image url and rating from the jquery ui data obj
@@ -382,9 +380,10 @@ $(document).ready(function() {
             db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
             db_obj.link = ui.item["0"].children[2].children["0"].href;
 
-            // Update the <i> attr to the day to remove from if delete clicked
-            $("i.fa-trash").attr({"id":`${toElement}`});
+            // update the trashcan link
+            trashCan(db_obj);
 
+            // update the DB
             updateMenu(db_obj);
 
    },
