@@ -67,7 +67,7 @@ function dispSearch (result, index, array) {
    let recipe_name = result.recipeName = result.recipeName ? result.recipeName : 'Name';
    let rating = result.rating;
 
-   let link = `http://www.yummly.com/recipes?q=`;
+   let link = `https://www.yummly.com/recipes?q=`;
    let encoded_name = encodeURIComponent(recipe_name);
    link += encoded_name;
    let img = result.imageUrlsBySize[90];
@@ -143,7 +143,7 @@ function searchAPI(recipe_search, food_search) {
 
     $.ajax({
         type: "GET",
-        url: `http://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
+        url: `https://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
         dataType: 'jsonp'
     }).done(function(result) {
         result.matches.forEach(dispSearch);
