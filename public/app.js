@@ -75,7 +75,7 @@ function dispSearch (result, index, array) {
    $('div.column_results').append(
       "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
          foodID +
-         "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
+         "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'><i class='fa fa-hand-o-right' aria-hidden='true'></i> Grab Me </span>" +
          recipe_name +
          "</div><div class='portlet-content'>" +
          "<img src=" +
@@ -236,7 +236,9 @@ function removeMenu (db_obj) {
 
 function trashCan (db_obj) {
   // Update the <i> attr to the day to remove from if delete clicked
-  $(`div.column#${db_obj.toElement}` ).find( "i.fa-trash" ).attr({"id":`${db_obj.toElement}`});
+  console.log(db_obj);
+
+    $(`div.column#${db_obj.toElement}`).find( "i.fa-trash" ).attr({"id":`${db_obj.toElement}`});
 }
 
 // --Document Section--
@@ -358,16 +360,24 @@ $(document).ready(function() {
 
             // Grab the element the portlet is coming FROM
             db_obj.uid = user_data_obj._id;
-            db_obj.fromElement = ui.item["0"].parentElement.id;
+            db_obj.fromElement = 'search';
             db_obj.foodID = ui.item[0].id;
             removeMenu(db_obj);
    },
     stop: function (event, ui) {
             ui.item.toggleClass("highlight");
 
-            //Grab the element the portlet is going TO
-            db_obj.toElement = ui.item["0"].parentElement.id;
-            console.log(db_obj.toElement);
+            /*
+            Have to handle the case where a recipe is picked up from the search results, and dropped back in the search results.  In this case, the parentElement id is not undefined or null, it's an empty string in the ui.item object.  So, set the toElement = to search so the trashcan will work.
+            */
+
+            if(ui.item[0].parentElement.id === '') {
+              // Picked up and dropped back in search
+              db_obj.toElement = 'search';
+              // Picked up from search, dropped in the menu
+            } else {
+              db_obj.toElement = ui.item[0].parentElement.id;
+            }
 
             /*
             Get the recipe name, image url and rating from the jquery ui data obj
