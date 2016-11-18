@@ -74,7 +74,7 @@ input {
   margin: 1%;
 }
 
-#food_search {
+#food_search, #password, #username, #new_username, #new_email, #new_password, #recipe_search {
   margin: 10px;
   width: 80%;
 }
@@ -400,4 +400,33 @@ input {
   margin: 0 1em 1em 0;
   height: 100px;
   width: 150px;
+}
+
+/*sub 480, will display block for small screens */
+@media handheld, screen and (max-width: 480px) {
+  body {
+
+  }
+  .login_transparency {
+    width: 75%;
+  }
+  .newuser_transparency {
+    width: 75%;
+  }
+  .childWrapper {
+     width:90%;
+  }
+  .map {
+      margin:1% auto;
+      display:block;
+      width:90%;
+      border-radius:1px;
+  }
+
+.events {
+    margin:1% auto;
+    display:block;
+    width:90%;
+    border-radius:1px;
+  }
 }
