@@ -2,7 +2,7 @@
 
 ##Overwhelmed by all your recipes and can't plan your meals for the week?  Have no fear, foodMe is here!  Search recipe/food data from Yummly, create custom meal plans, drag and drop your recipes onto your planning page.
 
-## Interactive SPA using mongoDB/mongoose, express, JavaScript (some ES6), jQuery, Node.js, bcrypt, nodemailer
+## Interactive SPA using mongoDB/mongoose, express, JavaScript (some ES6), jQuery, Node.js, bcrypt, nodemailer. Thx to [Jquery Touch Punch](http://touchpunch.furf.com/) for allowing this to even work on mobile!
 
 ## App Features:
 * Hashed passwords and secure login
