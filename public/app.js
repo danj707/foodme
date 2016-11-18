@@ -146,7 +146,8 @@ function searchAPI(recipe_search, food_search) {
         url: `https://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
         dataType: 'jsonp'
     }).done(function(result) {
-      console.log(result);
+      let results_length = result.matches.length;
+      $('div.column_results').append(`Search Results (${results_length})`);
         result.matches.forEach(dispSearch);
     }).fail(function(jqXHR, error) {
         $('p.newuser_error').text("We're sorry, there was a system error, try again.");
