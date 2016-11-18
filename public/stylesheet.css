@@ -403,7 +403,7 @@ input {
 }
 
 /*sub 480, will display block for small screens */
-@media handheld, screen and (min-width: 480px) {
+@media handheld, screen and (max-width: 480px) {
   .login_transparency {
     width: 60%;
   }
