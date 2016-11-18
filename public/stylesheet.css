@@ -74,9 +74,14 @@ input {
   margin: 1%;
 }
 
-#food_search, #password, #username, #new_username, #new_email, #new_password, #recipe_search {
+#food_search, #recipe_search {
   margin: 10px;
-  width: 80%;
+  width: 85%;
+}
+
+#password, #username, #new_username, #new_email, #new_password {
+  margin: 10px;
+  width: 50%;
 }
 
 .fa-trash:hover {
@@ -176,11 +181,15 @@ input {
 .menu_error {
   background:red;
   border-radius:1px;
+  margin:auto;
+  width:40%;
 }
 
 .menu_success {
   background:green;
   border-radius:1px;
+  margin:auto;
+  width:40%;
 }
 
 .week_col, .mon_col, .tues_col, .wed_col, .thurs_col, .fri_col, .weekend_col {

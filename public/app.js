@@ -146,6 +146,7 @@ function searchAPI(recipe_search, food_search) {
         url: `https://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
         dataType: 'jsonp'
     }).done(function(result) {
+      console.log(result);
         result.matches.forEach(dispSearch);
     }).fail(function(jqXHR, error) {
         $('p.newuser_error').text("We're sorry, there was a system error, try again.");
@@ -236,8 +237,6 @@ function removeMenu (db_obj) {
 
 function trashCan (db_obj) {
   // Update the <i> attr to the day to remove from if delete clicked
-  console.log(db_obj);
-
     $(`div.column#${db_obj.toElement}`).find( "i.fa-trash" ).attr({"id":`${db_obj.toElement}`});
 }
 
@@ -342,7 +341,6 @@ $(document).ready(function() {
 
             // update the DB
             updateMenu(db_obj);
-
       },
       handle: ".portlet-header",
       cancel: ".portlet-toggle",
@@ -394,7 +392,11 @@ $(document).ready(function() {
             trashCan(db_obj);
 
             // update the DB
-            updateMenu(db_obj);
+            if(db_obj.toElement === 'search') {
+              // skip doing anything, just drag/drop on the search results bar, no DB update needed
+            } else {
+              updateMenu(db_obj);
+            }
 
    },
     handle: ".portlet-header",
