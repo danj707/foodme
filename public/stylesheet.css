@@ -403,30 +403,70 @@ input {
 }
 
 /*sub 480, will display block for small screens */
-@media handheld, screen and (max-width: 480px) {
-  body {
-
+@media handheld, screen and (min-width: 480px) {
+  .login_transparency {
+    width: 60%;
   }
+  .newuser_transparency {
+    width: 60%;
+  }
+  .slide {
+    height:135px;
+    width:100%;
+  }
+  .slide_faves {
+    height:135px;
+    width:100%;
+  }
+  .side_search {
+    width:20%;
+  }
+  .side_faves {
+    width:20%;
+  }
+  #panel, #panel_faves {
+    height:100%;
+    overflow-y: auto;
+  }
+  #foodsearch {
+    padding:0px;
+  }
+  .search_headers {
+    font-size:.8rem;
+  }
+}
+
+/*sub 375, will display block for small screens */
+@media handheld, screen and (max-width: 375px) {
   .login_transparency {
     width: 75%;
   }
   .newuser_transparency {
     width: 75%;
   }
-  .childWrapper {
-     width:90%;
+  .slide {
+    height:140px;
+    width:100%;
   }
-  .map {
-      margin:1% auto;
-      display:block;
-      width:90%;
-      border-radius:1px;
+  .slide_faves {
+    height:140px;
+    width:100%;
   }
-
-.events {
-    margin:1% auto;
-    display:block;
-    width:90%;
-    border-radius:1px;
+  .side_search {
+    width:30%;
+  }
+  .side_faves {
+    width:30%;
+  }
+  #panel, #panel_faves {
+    height:100%;
+    width:30%;
+    overflow-y: auto;
+  }
+  #foodsearch {
+    padding:0px;
+  }
+  .search_headers {
+    font-size:.8rem;
   }
 }
