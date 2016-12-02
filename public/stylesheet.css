@@ -17,7 +17,7 @@
 }
 
 html {
-  background: rgba(0, 0, 0, 0) url("../images/background.jpg") no-repeat center center fixed;
+  background: rgba(0, 0, 0, 0) url("./images/background.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -31,7 +31,7 @@ a:active {
 
 a:hover {
   color: blue;
-  font-size: 24px;
+  text-transform:uppercase;
 }
 
 body {
@@ -79,7 +79,11 @@ input {
   width: 85%;
 }
 
-#password, #username, #new_username, #new_email, #new_password {
+.hidden {
+  display:none;
+}
+
+.form_padding {
   margin: 10px;
   width: 50%;
 }
@@ -109,14 +113,13 @@ input {
   text-align: center;
   margin: auto;
   width: 30%;
-  background-image: url("images/transparent.jpg");
+  background-image: url("./images/transparent.jpg");
   border-radius: 0.5rem;
-  padding-top: 2rem;
   margin-bottom: 1rem;
   margin-top: 15%;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .top_header {
@@ -131,7 +134,7 @@ input {
   text-align: center;
   margin: auto;
   width: 30%;
-  background-image: url("images/transparent.jpg");
+  background-image: url("./images/transparent.jpg");
   border-radius: 0.5rem;
   padding-top: 2rem;
   margin-bottom: 1rem;
@@ -142,7 +145,7 @@ input {
 }
 
 .container {
-  background: url("images/transparent.jpg");
+  background: url("./images/transparent.jpg");
   border-radius: 0.5rem;
   padding-top: 10px;
   margin-bottom: 25px;
@@ -153,7 +156,7 @@ input {
 }
 
 .transparency {
-  background-image: url("images/transparent.jpg");
+  background-image: url("./images/transparent.jpg");
   border-radius: 0.5rem;
   padding: 1rem;
   width: 60%;
@@ -192,7 +195,7 @@ input {
   width:40%;
 }
 
-.week_col, .mon_col, .tues_col, .wed_col, .thurs_col, .fri_col, .weekend_col {
+.display_columns {
   display: inline-block;
   vertical-align: top;
   background: darkgray;

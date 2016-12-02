@@ -96,6 +96,8 @@ function initApp() {
     API - /users/create
     */
     app.post('/users/create', function(req, res) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         var new_username = req.body.new_username;
         var new_password = req.body.new_password;
         var new_email = req.body.new_email;
@@ -116,6 +118,7 @@ function initApp() {
                     email: new_email
                 }, function(err, items) {
                     if (err) {
+                      console.log(err);
                         return res.status(500).json({message: 'Couldnt create user, already exists'});
                     }
                     if (items) {
@@ -228,6 +231,7 @@ function initApp() {
 
     /*
     -- sendEmail to new users on signup (actually only send to me now - due to Mailgun's requiring all email addresses to be pre-verified for spam purposes)
+    --Understand not to be having the password for account in the code, but the test email domain doesn't allow sending to non-verified domains, so it can't be used to send spam.  In future releases, switch this to an environment variable and not embed the password
     */
     function sendEmail (new_username, new_email) {
         var nodemailer = require('nodemailer');
@@ -252,6 +256,7 @@ function initApp() {
         // send mail with defined transport object
         transporter.sendMail(mailOptions, function(error, info){
             if(error){
+                //In future release, tie email success to account creation
                 return console.log(error);
             }
             console.log('Message sent: ' + info.response);

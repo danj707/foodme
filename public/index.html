@@ -23,12 +23,12 @@
 
         <form id="login" action="login" class="login_form">
             <p><label id="username" class="label">Username:</p>
-                  <input type="text" name="username" id="username" placeholder="username" required></input>
+                  <input type="text" name="username" id="username" class="form_padding" placeholder="username" required></input>
               </label>
 
 
             <p><label id="password" class="label">Password:</p>
-                  <input type="password" name="password" id="password" placeholder="password" required></input>
+                  <input type="password" name="password" id="password" class="form_padding" placeholder="password" required></input>
               </label>
             <p class="login_error"></p>
             <input type="submit" id="login" value="Login"></input>
@@ -46,15 +46,15 @@
 
         <form id="register" action="register" class="register_form">
             <p><label id="new_username">Username:</p>
-                  <input type="text" name="new_username" id="new_username" placeholder="username" required></input>
+                  <input type="text" name="new_username" id="new_username" class="form_padding" placeholder="username" required></input>
               </label>
 
             <p><label id="new_email">Email:</p>
-                  <input type="text" name="new_email" id="new_email" placeholder="me@foo.com" required></input>
+                  <input type="text" name="new_email" id="new_email" class="form_padding" placeholder="me@foo.com" required></input>
               </label>
 
             <p><label id="new_password">Password:</p>
-                  <input type="password" name="new_password" id="new_password" placeholder="password" required></input>
+                  <input type="password" name="new_password" id="new_password" class="form_padding" placeholder="password" required></input>
               </label>
 
             <p class="register_error"></p>
@@ -75,7 +75,7 @@
     <!-- End layout container  -->
 
         <!-- Column 1 - Monday Content -->
-        <section class="mon_col">
+        <section class="display_columns">
             <div class="header">
                 Monday
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
@@ -88,7 +88,7 @@
         </section>
 
         <!-- Column 2 - Tuesday -->
-        <section class="tues_col">
+        <section class="display_columns">
             <div class="header">
                 Tuesday
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
@@ -100,7 +100,7 @@
         </section>
 
         <!-- Column 3 - Wednesday -->
-        <section class="wed_col">
+        <section class="display_columns">
             <div class="header">
                 Wednesday
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
@@ -112,7 +112,7 @@
         </section>
 
         <!-- Column 4 - Thursday -->
-        <section class="thurs_col">
+        <section class="display_columns">
             <div class="header">
                 Thursday
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
@@ -124,7 +124,7 @@
         </section>
 
         <!-- Column 2 - Friday -->
-        <section class="fri_col">
+        <section class="display_columns">
             <div class="header">
                 Friday
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
@@ -135,7 +135,7 @@
         </section>
 
         <!-- Column 2 - Weekend -->
-        <section class="weekend_col">
+        <section class="display_columns">
             <div class="header sat">
                 Saturday (weekend)
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
@@ -199,7 +199,7 @@
 
             <!-- Search results start Here -->
             <section class="results">
-                <section class="week_col">
+                <section class="display_columns">
                     <div class="column_results">
                         <!-- Result data goes in here -->
                     </div>
@@ -217,7 +217,7 @@
             <!-- Faves Menu options Go in Here -->
             <section class="faves">
                 <i class="fa fa-cutlery" id="faves" aria-hidden="true"><span>  </span></i> <h3>Your Saved Faves!</h3>
-                <section class="week_col">
+                <section class="display_columns">
                     <div class="column_faves" id="faves">
                 <p class="drop">Drop here <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                     <!-- Faves data goes in here -->

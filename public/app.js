@@ -50,7 +50,7 @@ function db_obj () {
 // --Rating star function, build up a star for each rating increment, return the appropriate html
 function genRating (rating) {
    let html = `Rating: <b id='rating' value=${rating} <span>`;
-   for(var i=1;i<=rating;i++) {
+   for(var i=1, j=rating; i<=j; i++) {
       html += '<i class="fa fa-star yellow" aria-hidden="true"></i>';
    }
    html += '</span></b>';
@@ -73,13 +73,10 @@ function dispSearch (result, index, array) {
    let img = result.imageUrlsBySize[90];
 
    $('div.column_results').append(
-      "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
-         foodID +
-         "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'><i class='fa fa-hand-o-right' aria-hidden='true'></i> Grab Me </span>" +
-         recipe_name +
+      `<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=${foodID}` +
+         `><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'><i class='fa fa-hand-o-right' aria-hidden='true'></i></span>${recipe_name}` +
          "</div><div class='portlet-content'>" +
-         "<img src=" +
-         img +
+         `<img src=${img}` +
          "><p>" +
          genRating(rating) +
          `</p></div><div><a href="${link}" target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true' id="search"></i></div>`);
@@ -112,8 +109,8 @@ function newUser(new_username, new_password, new_email) {
         'new_email': new_email
     };
     $.ajax({
-      type: "POST",
-      url: "/users/create",
+      type: 'POST',
+      url: '/users/create',
       data: q_string,
       dataType: 'json'
     }).done(function(result) {
@@ -124,6 +121,7 @@ function newUser(new_username, new_password, new_email) {
             $('p.newuser_error').text("Sorry, that username exists already, try another username");
         }
     }).fail(function(jqXHR, error) {
+      console.log(error);
         $('p.register_error').text("We're sorry, there was a system error, try again.");
     });
 }
@@ -132,7 +130,6 @@ function newUser(new_username, new_password, new_email) {
 function searchAPI(recipe_search, food_search) {
     $('p.search_error').empty();
     let search_params = 'default';
-
     if(recipe_search) {
       //use the recipe search
       search_params = recipe_search;
@@ -140,12 +137,12 @@ function searchAPI(recipe_search, food_search) {
       //Or, use the food search
       search_params = food_search;
     }
-
     $.ajax({
-        type: "GET",
+        type: 'GET',
         url: `https://api.yummly.com/v1/api/recipes?_app_id=${app_id}&_app_key=${app_key}&q= ${search_params}`,
         dataType: 'jsonp'
     }).done(function(result) {
+      //console.log(result);
       let results_length = result.matches.length;
       $('div.column_results').append(`Search Results (${results_length})`);
         result.matches.forEach(dispSearch);
@@ -171,16 +168,12 @@ function mainPage(result) {
     */
 
     for (var key in result) {
-        for(var i=0;i<result[key].length;i++) {
+        for(var i=0, j=result[key].length ; i< j ;i++) {
             $(`div.column#${key}`).append(
-              "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
-                 result[key][i].foodID +
-                 "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
-                 result[key][i].name +
-                 `</div><div class='portlet-content' id=${key}>` +
-                 "<img src=" +
-                 result[key][i].url +
-                 "><p>" +
+              `<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=
+                 ${result[key][i].foodID}><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+                 ${result[key][i].name}</div><div class='portlet-content' id=${key}><img src=
+                 ${result[key][i].url}><p>` +
                  genRating(result[key][i].rating) +
                  `</p></div><div><a href=${result[key][i].link} target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true' id=${key}></i></div>`);
         }
@@ -188,16 +181,11 @@ function mainPage(result) {
 
     // Also have to prefill the 'faves' menu in case the user has some saved.  No need to wait until expanded.
 
-        for(var i=0;i<result.faves.length;i++) {
+        for(var i=0, j=result.faves.length ; i<j ;i++) {
             $('div.column_faves').append(
-              "<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=" +
-                 result.faves[i].foodID +
-                 "><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>" +
-                 result.faves[i].name +
-                 "</div><div class='portlet-content'>" +
-                 "<img src=" +
-                 result.faves[i].url +
-                 "><p>" +
+              `<div class='portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all' id=
+                 ${result.faves[i].foodID}><div class='portlet-header ui-widget-header ui-sortable-handle ui-corner-all'><span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+                 ${result.faves[i].name}</div><div class='portlet-content'><img src=${result.faves[i].url}><p>` +
                  genRating(result.faves[i].rating) +
                  `</p></div><div><a href=${result.faves[i].link} target='_blank' class="external_link"><i class="fa fa-external-link" aria-hidden="true"></i> View Recipe </a><i class='fa fa-trash fa-lg' aria-hidden='true' id="faves"></i></div>`);
        }
@@ -207,30 +195,32 @@ function mainPage(result) {
 function updateMenu (db_obj) {
       var q_string = db_obj;
       $.ajax({
-         type: "POST",
-         url: "/update",
+         type: 'POST',
+         url: '/update',
          data: q_string,
          dataType: 'json'
       }).done(function(result) {
           //console.log("Update Successful");
-          $('p.menu_success').text("Menu item added!");
+          $('p.menu_success').text("Menu item moved!");
       }).fail(function(jqXHR, error) { //this waits for the ajax to return with an error promise object
           $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
       });
 }
 
 // Remove a menu item from the DB
-function removeMenu (db_obj) {
-//      var q_string = `uid=${db_obj.uid}&foodID=${db_obj.foodID}&fromElement=${db_obj.fromElement}`;
+function removeMenu (db_obj,flag) {
       var q_string = db_obj;
+      var flag = flag;
 
       $.ajax({
-         type: "DELETE",
-         url: `/remove`,
+         type: 'DELETE',
+         url: '/remove',
          data: q_string,
          dataType: 'json'
       }).done(function(result) {
-          $('p.menu_success').text("Menu item removed!");
+          if (flag === '1') {
+            $('p.menu_success').text("Menu item removed!");
+          }
       }).fail(function(jqXHR, error) {
           $('p.menu_error').text("We're sorry, there was an error updating your menu, try again later.");
       });
@@ -238,7 +228,7 @@ function removeMenu (db_obj) {
 
 function trashCan (db_obj) {
   // Update the <i> attr to the day to remove from if delete clicked
-    $(`div.column#${db_obj.toElement}`).find( "i.fa-trash" ).attr({"id":`${db_obj.toElement}`});
+    $(`div.column#${db_obj.toElement}`).find('i.fa-trash').attr({"id":`${db_obj.toElement}`});
 }
 
 // --Document Section--
@@ -248,10 +238,10 @@ $(document).ready(function() {
     $('section.login_transparency').css('display', 'block');
 
     // hide the search and display blocks until logged in
-    $('section.newuser_transparency').css('display','none');
-    $('section.container').css('display', 'none');
-    $('section.side_search').css('display', 'none');
-    $('section.side_faves').css('display', 'none');
+    $('section.newuser_transparency').addClass('hidden');
+    $('section.container').addClass('hidden');
+    $('section.side_search').addClass('hidden');
+    $('section.side_faves').addClass('hidden');
 
     // Handle login event, call API to login user
     $('#login').submit(function(event) {
@@ -264,20 +254,20 @@ $(document).ready(function() {
     // Handle new user registration event, call API to add user
     $('#new_user').click(function(event) {
         event.preventDefault();
-        $('section.newuser_transparency').css('display', 'block');
+        $('section.newuser_transparency').removeClass('hidden');
 
         // turn off the other pages
-        $('section.login_transparency').css('display', 'none');
-        $('section.container').css('display', 'none');
-        $('section.side_search').css('display', 'none');
-        $('section.side_faves').css('display', 'none');
+        $('section.login_transparency').css('display','none');
+        $('section.container').addClass('hidden');
+        $('section.side_search').addClass('hidden');
+        $('section.side_faves').addClass('hidden');
 
     });
 
     // Handle new user registration event, call API to add user
     $('#register').submit(function(event) {
       // turn on the registration page
-      $('section.newuser_transparency').css('display', 'block');
+      $('section.newuser_transparency').removeClass('hidden');
 
         event.preventDefault();
         let new_username = $('input#new_username').val();
@@ -307,23 +297,24 @@ $(document).ready(function() {
     });
 
     // Main Menu Column Data
-   $(".column").sortable({
+   $('.column').sortable({
       connectWith: ".column, .column_results, .column_faves",
       start: function (event, ui) {
+            $('p.menu_success').empty();
             ui.item.toggleClass("highlight");
 
             // Grab the element the portlet is coming FROM
             db_obj.uid = user_data_obj._id;
-            db_obj.fromElement = ui.item["0"].parentElement.id;
+            db_obj.fromElement = ui.item[0].parentElement.id;
             db_obj.foodID = ui.item[0].id;
 
-            removeMenu(db_obj);
+            removeMenu(db_obj,0);
       },
       stop: function (event, ui) {
-            ui.item.toggleClass("highlight");
+            ui.item.toggleClass('highlight');
 
             // Grab the element the portlet is going TO
-            var toElement = ui.item["0"].parentElement.id;
+            var toElement = ui.item[0].parentElement.id;
             db_obj.toElement = toElement;
 
             /*
@@ -335,10 +326,10 @@ $(document).ready(function() {
             // update the trashcan link
             trashCan(db_obj);
 
-            db_obj.name = ui.item["0"].children["0"].innerText;
-            db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
-            db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
-            db_obj.link = ui.item["0"].children[2].children["0"].href;
+            db_obj.name = ui.item[0].children[0].innerText;
+            db_obj.url = ui.item[0].children[1].lastChild.previousSibling.currentSrc;
+            db_obj.rating = ui.item[0].children[1].children[1].children[0].attributes[1].nodeValue;
+            db_obj.link = ui.item[0].children[2].children[0].href;
 
             // update the DB
             updateMenu(db_obj);
@@ -361,10 +352,10 @@ $(document).ready(function() {
             db_obj.uid = user_data_obj._id;
             db_obj.fromElement = 'search';
             db_obj.foodID = ui.item[0].id;
-            removeMenu(db_obj);
+            removeMenu(db_obj,0);
    },
     stop: function (event, ui) {
-            ui.item.toggleClass("highlight");
+            ui.item.toggleClass('highlight');
 
             /*
             Have to handle the case where a recipe is picked up from the search results, and dropped back in the search results.  In this case, the parentElement id is not undefined or null, it's an empty string in the ui.item object.  So, set the toElement = to search so the trashcan will work.
@@ -384,10 +375,10 @@ $(document).ready(function() {
             thing and this will all break.  Boo.
             */
 
-            db_obj.name = ui.item["0"].children["0"].innerText;
-            db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
-            db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
-            db_obj.link = ui.item["0"].children[2].children["0"].href;
+            db_obj.name = ui.item[0].children[0].innerText;
+            db_obj.url = ui.item[0].children[1].lastChild.previousSibling.currentSrc;
+            db_obj.rating = ui.item[0].children[1].children[1].children[0].attributes[1].nodeValue;
+            db_obj.link = ui.item[0].children[2].children[0].href;
 
             // update the trashcan link
             trashCan(db_obj);
@@ -407,23 +398,23 @@ $(document).ready(function() {
         // remove the ability to copy/paste content from the portlets
         .disableSelection();
 
-    $(".column_faves").sortable({
+    $('.column_faves').sortable({
         connectWith: ".column, .column_results, .column_faves",
         start: function (event, ui) {
-              ui.item.toggleClass("highlight");
+              ui.item.toggleClass('highlight');
 
               // Grab the element the portlet is coming FROM
               db_obj.uid = user_data_obj._id;
-              db_obj.fromElement = ui.item["0"].parentElement.id;
+              db_obj.fromElement = ui.item[0].parentElement.id;
               db_obj.foodID = ui.item[0].id;
 
-              removeMenu(db_obj);
+              removeMenu(db_obj,0);
         },
         stop: function (event, ui) {
-              ui.item.toggleClass("highlight");
+              ui.item.toggleClass('highlight');
 
               //Grab the element the portlet is going TO
-              var toElement = ui.item["0"].parentElement.id;
+              var toElement = ui.item[0].parentElement.id;
               db_obj.toElement = toElement;
 
               /*
@@ -432,10 +423,10 @@ $(document).ready(function() {
               thing and this will all break.  Boo.
               */
 
-              db_obj.name = ui.item["0"].children["0"].innerText;
-              db_obj.url = ui.item["0"].children[1].lastChild.previousSibling.currentSrc;
-              db_obj.rating = ui.item["0"].children[1].children[1].children["0"].attributes[1].nodeValue;
-              db_obj.link = ui.item["0"].children[2].children["0"].href;
+              db_obj.name = ui.item[0].children[0].innerText;
+              db_obj.url = ui.item[0].children[1].lastChild.previousSibling.currentSrc;
+              db_obj.rating = ui.item[0].children[1].children[1].children[0].attributes[1].nodeValue;
+              db_obj.link = ui.item[0].children[2].children[0].href;
 
               // Database DEL/UPDATE hook - call the generic API here, pass in update data obj
               updateMenu(db_obj);
@@ -449,25 +440,25 @@ $(document).ready(function() {
         // remove the ability to copy/paste content from the portlets
         .disableSelection();
 
-    $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all").find(".portlet-header").addClass("ui-widget-header ui-corner-all").prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+    $('.portlet').addClass('ui-widget ui-widget-content ui-helper-clearfix ui-corner-all').find('.portlet-header').addClass('ui-widget-header ui-corner-all').prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
 
-    $(".search-slide").click(function() {
-        $("#panel").slideToggle("slow");
-        $("i#search").toggleClass("fa-plus fa-minus");
+    $('.search-slide').click(function() {
+        $('#panel').slideToggle('slow');
+        $('i#search').toggleClass('fa-plus fa-minus');
     });
-    $(".faves-slide").click(function() {
-        $("#panel_faves").slideToggle("slow");
-        $("i#faves").toggleClass("fa-plus fa-minus");
+    $('.faves-slide').click(function() {
+        $('#panel_faves').slideToggle('slow');
+        $('i#faves').toggleClass('fa-plus fa-minus');
     });
 });
 
-$(document).on("click", '.portlet-toggle', function() {
+$(document).on('click', '.portlet-toggle', function() {
     var icon = $(this);
-    icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-    icon.closest(".portlet").find(".portlet-content").toggle();
+    icon.toggleClass('ui-icon-minusthick ui-icon-plusthick');
+    icon.closest('.portlet').find('.portlet-content').toggle();
 });
 
-$(document).on("click", '.fa-trash', function(evt) {
+$(document).on('click', '.fa-trash', function(evt) {
   // Grab the element the portlet is coming FROM
   db_obj.uid = user_data_obj._id;
 
@@ -492,7 +483,7 @@ $(document).on("click", '.fa-trash', function(evt) {
       db_obj.foodID = evt.originalEvent.target.parentElement.parentElement.id;
       db_obj.fromElement = evt.originalEvent.target.id;
 
-      removeMenu(db_obj);
+      removeMenu(db_obj,1);
       $(this).parent().parent().remove();
     }
 
